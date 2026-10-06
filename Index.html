@@ -2,62 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Ensures proper scaling and readable text on mobile phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intro to Web Development</title>
   <style>
+    /* Reset margins and set site-wide background color */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333333;
-      max-width: 650px;
-      margin: 40px auto;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef2f5;
+      color: #2d3748;
+      margin: 0;
+      padding: 40px 20px;
       line-height: 1.6;
     }
 
+    /* Centered content card container */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Heading styling */
     h1 {
       color: #1a365d;
       text-align: center;
+      margin-top: 0;
       border-bottom: 3px solid #3182ce;
-      padding-bottom: 10px;
+      padding-bottom: 12px;
+      font-size: 28px;
     }
 
+    /* Responsive image styling */
     img {
       max-width: 100%;
       height: auto;
       display: block;
-      margin: 20px auto;
+      margin: 24px auto;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
+    /* Paragraph formatting */
     p {
-      background-color: #ffffff;
-      font-size: 18px;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 17px;
+      margin-bottom: 16px;
     }
 
-    /* Styles for clickable links */
+    /* Interactive link styles */
     a {
       color: #3182ce;
-      font-weight: bold;
+      font-weight: 600;
       text-decoration: none;
+      transition: color 0.2s ease;
     }
 
-    /* Adds an underline when hovering over the link with a mouse */
     a:hover {
+      color: #2b6cb0;
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Web Development 101</h1>
-  
-  <img src="workspace.jpg" alt="A clean workspace desk with a laptop">
 
-  <p>In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+  <main class="container">
+    <h1>Welcome to Web Development 101</h1>
+    
+    <img src="workspace.jpg" alt="A clean workspace desk with a laptop">
 
-  <p>Check out my favorite resource: <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Visit Wikipedia</a>!</p>
+    <p>In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+
+    <p>Check out my favorite resource: <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Visit Wikipedia</a>!</p>
+  </main>
+
 </body>
 </html>
