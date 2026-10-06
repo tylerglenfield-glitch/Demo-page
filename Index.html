@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Intro to Web Development</title>
   <style>
-    /* Styles for the entire page background and overall page layout */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -15,7 +14,6 @@
       line-height: 1.6;
     }
 
-    /* Styles for the main heading */
     h1 {
       color: #1a365d;
       text-align: center;
@@ -23,7 +21,15 @@
       padding-bottom: 10px;
     }
 
-    /* Styles for the paragraph content box */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
     p {
       background-color: #ffffff;
       font-size: 18px;
@@ -31,11 +37,27 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+
+    /* Styles for clickable links */
+    a {
+      color: #3182ce;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Adds an underline when hovering over the link with a mouse */
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <h1>Welcome to Web Development 101</h1>
+  
+  <img src="workspace.jpg" alt="A clean workspace desk with a laptop">
+
   <p>In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+
+  <p>Check out my favorite resource: <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Visit Wikipedia</a>!</p>
 </body>
 </html>
-<img src="workspace.jpg" alt="A clean workspace desk with a laptop">
