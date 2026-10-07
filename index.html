@@ -17,13 +17,47 @@
     }
 
     .container {
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
       background-color: #ffffff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Header & Control Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    select, button {
+      background-color: #3182ce;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    select {
+      outline: none;
+    }
+
+    button:hover, select:hover {
+      background-color: #2b6cb0;
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     h1 {
@@ -60,33 +94,15 @@
       text-decoration: underline;
     }
 
-    /* Button and Control Styles */
-    .controls {
-      text-align: center;
-      margin-bottom: 20px;
+    /* Interactive Elements Section */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
     }
 
-    button {
-      background-color: #3182ce;
-      color: #ffffff;
-      border: none;
-      padding: 10px 18px;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
-    }
-
-    button:hover {
-      background-color: #2b6cb0;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    /* Paragraph where the photo fact displays */
     #fact-text {
       font-weight: 600;
       color: #2b6cb0;
@@ -95,10 +111,65 @@
       padding: 12px;
       border-radius: 6px;
       margin-top: 12px;
-      display: none; /* Hidden by default until button is clicked */
+      display: none;
     }
 
-    /* Dark Mode Theme Styles */
+    /* Basketball Game Section */
+    .game-section {
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 2px dashed #cbd5e0;
+      text-align: center;
+    }
+
+    .game-box {
+      background-color: #edf2f7;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 15px;
+      position: relative;
+    }
+
+    .meter-container {
+      width: 100%;
+      height: 24px;
+      background-color: #cbd5e0;
+      border-radius: 12px;
+      position: relative;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .target-zone {
+      position: absolute;
+      left: 42.5%;
+      width: 15%;
+      height: 100%;
+      background-color: #48bb78;
+    }
+
+    .pointer {
+      position: absolute;
+      left: 0%;
+      width: 10px;
+      height: 100%;
+      background-color: #e53e3e;
+      border-radius: 2px;
+    }
+
+    .streak-badge {
+      font-size: 20px;
+      font-weight: bold;
+      color: #dd6b20;
+    }
+
+    #game-status {
+      font-weight: bold;
+      min-height: 24px;
+      margin-top: 10px;
+    }
+
+    /* Dark Mode Theme Overrides */
     body.dark-mode {
       background-color: #1a202c;
       color: #e2e8f0;
@@ -118,58 +189,180 @@
       color: #63b3ed;
     }
 
-    body.dark-mode button {
+    body.dark-mode select, body.dark-mode button {
       background-color: #63b3ed;
       color: #1a202c;
     }
 
-    body.dark-mode button:hover {
+    body.dark-mode select:hover, body.dark-mode button:hover {
       background-color: #4299e1;
     }
 
-    body.dark-mode #fact-text {
+    body.dark-mode #fact-text, body.dark-mode .game-box {
       background-color: #1a202c;
-      color: #90cdf4;
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .game-section {
+      border-top-color: #4a5568;
+    }
+
+    body.dark-mode .meter-container {
+      background-color: #4a5568;
     }
   </style>
 </head>
 <body>
 
   <main class="container">
-    <!-- Dark / Light Mode Toggle -->
-    <div class="controls">
-      <button onclick="toggleTheme()">🌓 Switch Theme</button>
+    
+    <!-- Header Control Bar: Theme & Language Switchers -->
+    <div class="top-bar">
+      <button onclick="toggleTheme()" id="theme-btn">🌓 Switch Theme</button>
+      <select id="language-select" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="zh">中文</option>
+      </select>
     </div>
 
-    <h1>Welcome to Web Development 101</h1>
+    <h1 id="site-title">Welcome to Web Development 101</h1>
     
-    <!-- Image & Fact Button Section -->
     <img src="workspace.jpeg" alt="A clean workspace desk with a laptop">
     
-    <div class="controls">
-      <button onclick="showPhotoFact()">📍 Photo Location Fact</button>
-      <p id="fact-text"></p>
+    <!-- Interactive Buttons -->
+    <div class="button-group">
+      <button onclick="addLike()" id="like-btn">❤️ Likes: <span id="like-count">0</span></button>
+      <button onclick="showRandomFact()" id="fact-btn">📍 Random Beach Fact</button>
     </div>
 
-    <p>In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+    <p id="fact-text"></p>
 
-    <p>Check out my favorite resource: <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Visit Wikipedia</a>!</p>
+    <p id="intro-p1">In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+
+    <p id="intro-p2">
+      <span id="link-label">Check out my favorite resource:</span> 
+      <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer" id="wiki-link">Visit Wikipedia</a>!
+    </p>
+
+    <!-- Basketball Game -->
+    <section class="game-section">
+      <h2 id="game-title">🏀 Santa Monica Basketball Challenge</h2>
+      <p id="game-desc">Time your shot! Click "Shoot!" when the red pointer is inside the green zone. Make 25 shots in a row to win!</p>
+      
+      <div class="game-box">
+        <div class="streak-badge"><span id="streak-label">Streak</span>: <span id="streak-count">0</span> / 25</div>
+        
+        <div class="meter-container">
+          <div class="target-zone"></div>
+          <div class="pointer" id="meter-pointer"></div>
+        </div>
+
+        <button onclick="shootBasket()" id="shoot-btn" style="font-size: 18px; padding: 12px 24px;">🏀 Shoot!</button>
+        <div id="game-status"></div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- JavaScript for Interactive Features -->
+  <!-- JavaScript Logic -->
   <script>
-    // Toggles the 'dark-mode' CSS class on the body element
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
+    // -------------------------------------------------------------
+    // 1. Translations Dictionary (English, Spanish, Chinese)
+    // -------------------------------------------------------------
+    const translations = {
+      en: {
+        themeBtn: "🌓 Switch Theme",
+        title: "Welcome to Web Development 101",
+        likeBtn: "❤️ Likes: ",
+        factBtn: "📍 Random Beach Fact",
+        introP1: "In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.",
+        linkLabel: "Check out my favorite resource:",
+        wikiLink: "Visit Wikipedia",
+        gameTitle: "🏀 Santa Monica Basketball Challenge",
+        gameDesc: "Time your shot! Click 'Shoot!' when the red pointer is inside the green zone. Make 25 in a row to win!",
+        streakLabel: "Streak",
+        shootBtn: "🏀 Shoot!",
+        facts: [
+          "This photo was taken in Santa Monica, CA - Tyler’s favorite beach in California!",
+          "Santa Monica Pier was built back in 1909!",
+          "Santa Monica enjoys over 300 sunny days every year.",
+          "The famous Original Muscle Beach was established next to Santa Monica Pier in the 1930s."
+        ],
+        swish: "🏀 SWISH! Great shot! (+1)",
+        miss: "❌ MISSED! Streak reset to 0.",
+        win: "🎉 YOU WIN! You made 25 shots in a row! You are a Santa Monica legend!"
+      },
+      es: {
+        themeBtn: "🌓 Cambiar Tema",
+        title: "Bienvenido a Desarrollo Web 101",
+        likeBtn: "❤️ Me gusta: ",
+        factBtn: "📍 Dato Aleatorio de Playa",
+        introP1: "En esta clase, aprendemos las bases para construir, diseñar y publicar sitios web interactivos usando HTML, CSS y GitHub Pages.",
+        linkLabel: "Echa un vistazo a mi recurso favorito:",
+        wikiLink: "Visitar Wikipedia",
+        gameTitle: "🏀 Desafío de Baloncesto de Santa Mónica",
+        gameDesc: "¡Calcula tu tiro! Haz clic en '¡Tirar!' cuando el puntero rojo esté en la zona verde. ¡Encesta 25 seguidos para ganar!",
+        streakLabel: "Racha",
+        shootBtn: "🏀 ¡Tirar!",
+        facts: [
+          "¡Esta foto fue tomada en Santa Mónica, CA, la playa favorita de Tyler en California!",
+          "¡El muelle de Santa Mónica fue construido en 1909!",
+          "Santa Mónica disfruta de más de 300 días de sol al año.",
+          "La famosa 'Muscle Beach' original nació junto al muelle de Santa Mónica en la década de 1930."
+        ],
+        swish: "🏀 ¡ENCESTADO! Gran tiro (+1)",
+        miss: "❌ ¡FALLASTE! La racha volvió a 0.",
+        win: "🎉 ¡GANASTE! ¡Encestaste 25 tiros seguidos! ¡Eres una leyenda de Santa Mónica!"
+      },
+      zh: {
+        themeBtn: "🌓 切换主题",
+        title: "欢迎来到网页开发 101",
+        likeBtn: "❤️ 点赞：",
+        factBtn: "📍 海滩随机冷知识",
+        introP1: "在本课程中，我们学习使用 HTML、CSS 和 GitHub Pages 构建、美化和发布互动网站的基础知识。",
+        linkLabel: "查看我最喜欢的资源：",
+        wikiLink: "访问维基百科",
+        gameTitle: "🏀 圣莫尼卡篮球挑战赛",
+        gameDesc: "把握投篮时机！当红色指针位于绿色区域时点击“投篮！”。连续投中 25 球即可获胜！",
+        streakLabel: "连中",
+        shootBtn: "🏀 投篮！",
+        facts: [
+          "这张照片拍摄于加州圣莫尼卡——这是 Tyler 在加州最喜欢的海滩！",
+          "圣莫尼卡码头建于 1909 年！",
+          "圣莫尼卡每年拥有超过 300 天的晴朗天气。",
+          "著名的 Muscle Beach（肌肉海滩）于 20 世纪 30 年代在圣莫尼卡码头旁诞生。"
+        ],
+        swish: "🏀 空心入网！漂亮的一投！(+1)",
+        miss: "❌ 没投中！连中纪录重置为 0。",
+        win: "🎉 你赢了！你连续投中了 25 球！你是圣莫尼卡的传奇球星！"
+      }
+    };
+
+    let currentLang = "en";
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.getElementById('theme-btn').innerText = t.themeBtn;
+      document.getElementById('site-title').innerText = t.title;
+      document.getElementById('fact-btn').innerText = t.factBtn;
+      document.getElementById('intro-p1').innerText = t.introP1;
+      document.getElementById('link-label').innerText = t.linkLabel;
+      document.getElementById('wiki-link').innerText = t.wikiLink;
+      document.getElementById('game-title').innerText = t.gameTitle;
+      document.getElementById('game-desc').innerText = t.gameDesc;
+      document.getElementById('streak-label').innerText = t.streakLabel;
+      document.getElementById('shoot-btn').innerText = t.shootBtn;
+
+      // Update likes button text keeping the current number
+      updateLikesDisplay();
+
+      // Clear or update fact if visible
+      document.getElementById('fact-text').style.display = "none";
     }
 
-    // Displays the secret fact when the button is pressed
-    function showPhotoFact() {
-      const factBox = document.getElementById('fact-text');
-      factBox.innerText = "This photo above was taken in Santa Monica, CA - Tyler’s favorite beach in California!";
-      factBox.style.display = "block"; // Makes the fact box visible
-    }
-  </script>
-
-</body>
-</html>
+    // -------------------------------------------------------------
+    // 2. Dark Mode Toggle
+    // -------------------------------------------------------------
