@@ -17,7 +17,7 @@
     }
 
     .container {
-      max-width: 650px;
+      max-width: 680px;
       margin: 0 auto;
       background-color: #ffffff;
       padding: 30px;
@@ -169,6 +169,85 @@
       margin-top: 10px;
     }
 
+    /* New York Knicks Banner */
+    .knicks-section {
+      margin-top: 35px;
+      background: linear-gradient(135deg, #006BB6 0%, #F58426 100%);
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .knicks-section h2 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .knicks-section p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* NBA Schedule & Scores Section */
+    .nba-section {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 2px dashed #cbd5e0;
+    }
+
+    .nba-section h2 {
+      text-align: center;
+      color: #1a365d;
+      margin-bottom: 20px;
+    }
+
+    .score-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 500px) {
+      .score-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: #edf2f7;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #3182ce;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card-status {
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #e53e3e;
+      margin-bottom: 8px;
+    }
+
+    .card-status.upcoming {
+      color: #3182ce;
+    }
+
+    .team-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
     /* Dark Mode Theme Overrides */
     body.dark-mode {
       background-color: #1a202c;
@@ -180,7 +259,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    body.dark-mode h1 {
+    body.dark-mode h1, body.dark-mode .nba-section h2 {
       color: #63b3ed;
       border-bottom-color: #63b3ed;
     }
@@ -198,12 +277,12 @@
       background-color: #4299e1;
     }
 
-    body.dark-mode #fact-text, body.dark-mode .game-box {
+    body.dark-mode #fact-text, body.dark-mode .game-box, body.dark-mode .card {
       background-color: #1a202c;
       color: #e2e8f0;
     }
 
-    body.dark-mode .game-section {
+    body.dark-mode .game-section, body.dark-mode .nba-section {
       border-top-color: #4a5568;
     }
 
@@ -228,7 +307,7 @@
 
     <h1 id="site-title">Welcome to Web Development 101</h1>
     
-    <img src="workspace.jpeg" alt="A clean workspace desk with a laptop">
+    <img src="workspace.jpg" alt="A clean workspace desk with a laptop">
     
     <!-- Interactive Buttons -->
     <div class="button-group">
@@ -263,6 +342,44 @@
       </div>
     </section>
 
+    <!-- New York Knicks Tribute Section -->
+    <section class="knicks-section">
+      <h2 id="knicks-title">🗽 Congratulations New York Knicks!</h2>
+      <p id="knicks-desc">Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!</p>
+    </section>
+
+    <!-- NBA Live Scores & Upcoming Games -->
+    <section class="nba-section">
+      <h2 id="nba-title">🏀 NBA Scores & Upcoming Games</h2>
+      <div class="score-cards">
+        
+        <div class="card">
+          <div class="card-status" id="status-1">FINAL</div>
+          <div class="team-row"><span>Philadelphia 76ers</span> <span>120</span></div>
+          <div class="team-row"><span>New York Knicks</span> <span>97</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-status" id="status-2">FINAL</div>
+          <div class="team-row"><span>Minnesota Timberwolves</span> <span>116</span></div>
+          <div class="team-row"><span>Milwaukee Bucks</span> <span>97</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-status upcoming" id="status-3">UPCOMING - 7:30 PM ET</div>
+          <div class="team-row"><span>Washington Wizards</span> <span>-</span></div>
+          <div class="team-row"><span>New York Knicks</span> <span>-</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-status upcoming" id="status-4">UPCOMING - 8:00 PM ET</div>
+          <div class="team-row"><span>Phoenix Suns</span> <span>-</span></div>
+          <div class="team-row"><span>Chicago Bulls</span> <span>-</span></div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- JavaScript Logic -->
@@ -291,7 +408,13 @@
         ],
         swish: "🏀 SWISH! Great shot! (+1)",
         miss: "❌ MISSED! Streak reset to 0.",
-        win: "🎉 YOU WIN! You made 25 shots in a row! You are a Santa Monica legend!"
+        win: "🎉 YOU WIN! You made 25 shots in a row! You are a Santa Monica legend!",
+        knicksTitle: "🗽 Congratulations New York Knicks!",
+        knicksDesc: "Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!",
+        nbaTitle: "🏀 NBA Scores & Upcoming Games",
+        statusFinal: "FINAL",
+        statusUpcoming1: "UPCOMING - 7:30 PM ET",
+        statusUpcoming2: "UPCOMING - 8:00 PM ET"
       },
       es: {
         themeBtn: "🌓 Cambiar Tema",
@@ -313,7 +436,13 @@
         ],
         swish: "🏀 ¡ENCESTADO! Gran tiro (+1)",
         miss: "❌ ¡FALLASTE! La racha volvió a 0.",
-        win: "🎉 ¡GANASTE! ¡Encestaste 25 tiros seguidos! ¡Eres una leyenda de Santa Mónica!"
+        win: "🎉 ¡GANASTE! ¡Encestaste 25 tiros seguidos! ¡Eres una leyenda de Santa Mónica!",
+        knicksTitle: "🗽 ¡Felicidades New York Knicks!",
+        knicksDesc: "¡Un saludo al indiscutible MEJOR equipo de la NBA! ¡Naranja y Azul por siempre!",
+        nbaTitle: "🏀 Resultados y Próximos Partidos de la NBA",
+        statusFinal: "FINAL",
+        statusUpcoming1: "PRÓXIMO - 7:30 PM ET",
+        statusUpcoming2: "PRÓXIMO - 8:00 PM ET"
       },
       zh: {
         themeBtn: "🌓 切换主题",
@@ -335,7 +464,13 @@
         ],
         swish: "🏀 空心入网！漂亮的一投！(+1)",
         miss: "❌ 没投中！连中纪录重置为 0。",
-        win: "🎉 你赢了！你连续投中了 25 球！你是圣莫尼卡的传奇球星！"
+        win: "🎉 你赢了！你连续投中了 25 球！你是圣莫尼卡的传奇球星！",
+        knicksTitle: "🗽 祝贺纽约尼克斯队！",
+        knicksDesc: "向 NBA 无庸置疑的最强球队致敬！永远的橙蓝军团！",
+        nbaTitle: "🏀 NBA 比分与近期赛事",
+        statusFinal: "完赛",
+        statusUpcoming1: "即将开始 - 美东时间 19:30",
+        statusUpcoming2: "即将开始 - 美东时间 20:00"
       }
     };
 
@@ -355,14 +490,104 @@
       document.getElementById('game-desc').innerText = t.gameDesc;
       document.getElementById('streak-label').innerText = t.streakLabel;
       document.getElementById('shoot-btn').innerText = t.shootBtn;
+      
+      // Update Knicks & NBA Schedule translations
+      document.getElementById('knicks-title').innerText = t.knicksTitle;
+      document.getElementById('knicks-desc').innerText = t.knicksDesc;
+      document.getElementById('nba-title').innerText = t.nbaTitle;
+      document.getElementById('status-1').innerText = t.statusFinal;
+      document.getElementById('status-2').innerText = t.statusFinal;
+      document.getElementById('status-3').innerText = t.statusUpcoming1;
+      document.getElementById('status-4').innerText = t.statusUpcoming2;
 
-      // Update likes button text keeping the current number
       updateLikesDisplay();
-
-      // Clear or update fact if visible
       document.getElementById('fact-text').style.display = "none";
     }
 
     // -------------------------------------------------------------
     // 2. Dark Mode Toggle
     // -------------------------------------------------------------
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // -------------------------------------------------------------
+    // 3. Likes Counter with LocalStorage
+    // -------------------------------------------------------------
+    let likes = parseInt(localStorage.getItem('siteLikes')) || 0;
+
+    function updateLikesDisplay() {
+      document.getElementById('like-btn').innerHTML = `${translations[currentLang].likeBtn} <span id="like-count">${likes}</span>`;
+    }
+
+    function addLike() {
+      likes++;
+      localStorage.setItem('siteLikes', likes);
+      updateLikesDisplay();
+    }
+
+    updateLikesDisplay();
+
+    // -------------------------------------------------------------
+    // 4. Random Fact Generator
+    // -------------------------------------------------------------
+    function showRandomFact() {
+      const factList = translations[currentLang].facts;
+      const randomIndex = Math.floor(Math.random() * factList.length);
+      const factBox = document.getElementById('fact-text');
+      
+      factBox.innerText = factList[randomIndex];
+      factBox.style.display = "block";
+    }
+
+    // -------------------------------------------------------------
+    // 5. Basketball Game Engine
+    // -------------------------------------------------------------
+    let streak = 0;
+    let pointerPosition = 0;
+    let pointerDirection = 1;
+    const pointerSpeed = 1.2;
+    const pointerElem = document.getElementById('meter-pointer');
+    const statusElem = document.getElementById('game-status');
+
+    function animateMeter() {
+      pointerPosition += pointerSpeed * pointerDirection;
+
+      if (pointerPosition >= 98) {
+        pointerDirection = -1;
+      } else if (pointerPosition <= 0) {
+        pointerDirection = 1;
+      }
+
+      pointerElem.style.left = pointerPosition + '%';
+      requestAnimationFrame(animateMeter);
+    }
+
+    animateMeter();
+
+    function shootBasket() {
+      const t = translations[currentLang];
+
+      if (pointerPosition >= 42.5 && pointerPosition <= 57.5) {
+        streak++;
+        document.getElementById('streak-count').innerText = streak;
+
+        if (streak >= 25) {
+          statusElem.style.color = "#38a169";
+          statusElem.innerText = t.win;
+          alert(t.win);
+        } else {
+          statusElem.style.color = "#38a169";
+          statusElem.innerText = t.swish;
+        }
+      } else {
+        streak = 0;
+        document.getElementById('streak-count').innerText = streak;
+        statusElem.style.color = "#e53e3e";
+        statusElem.innerText = t.miss;
+      }
+    }
+  </script>
+
+</body>
+</html>
