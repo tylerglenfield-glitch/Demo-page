@@ -3,13 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intro to Web Development</title>
+  <title>Intro to Web Development | Santa Monica & Knicks Edition</title>
   <style>
-    /* Default (Light Mode) Styles */
+    /* Default (Light Mode) Variables & Reset */
+    :root {
+      --bg-color: #eef2f5;
+      --card-bg: #ffffff;
+      --text-color: #2d3748;
+      --heading-color: #1a365d;
+      --primary-color: #3182ce;
+      --primary-hover: #2b6cb0;
+      --border-color: #cbd5e0;
+      --inner-bg: #edf2f7;
+    }
+
+    body.dark-mode {
+      --bg-color: #1a202c;
+      --card-bg: #2d3748;
+      --text-color: #e2e8f0;
+      --heading-color: #63b3ed;
+      --primary-color: #63b3ed;
+      --primary-hover: #4299e1;
+      --border-color: #4a5568;
+      --inner-bg: #1a202c;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #eef2f5;
-      color: #2d3748;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
       padding: 40px 20px;
       line-height: 1.6;
@@ -17,12 +39,12 @@
     }
 
     .container {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background-color: var(--card-bg);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -33,21 +55,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
     }
 
     select, button {
-      background-color: #3182ce;
+      background-color: var(--primary-color);
       color: #ffffff;
       border: none;
       padding: 10px 16px;
       font-size: 15px;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition: all 0.2s ease;
+    }
+
+    body.dark-mode select, body.dark-mode button {
+      color: #1a202c;
     }
 
     select {
@@ -55,18 +81,19 @@
     }
 
     button:hover, select:hover {
-      background-color: #2b6cb0;
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
     }
 
     button:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     h1 {
-      color: #1a365d;
+      color: var(--heading-color);
       text-align: center;
       margin-top: 0;
-      border-bottom: 3px solid #3182ce;
+      border-bottom: 3px solid var(--primary-color);
       padding-bottom: 12px;
       font-size: 28px;
     }
@@ -76,7 +103,8 @@
       height: auto;
       display: block;
       margin: 20px auto;
-      border-radius: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     }
 
     p {
@@ -85,15 +113,37 @@
     }
 
     a {
-      color: #3182ce;
+      color: var(--primary-color);
       font-weight: 600;
       text-decoration: none;
-      transition: color 0.2s ease;
     }
 
     a:hover {
-      color: #2b6cb0;
       text-decoration: underline;
+    }
+
+    /* Weather & Beach Widget */
+    .weather-widget {
+      background: linear-gradient(135deg, #3182ce 0%, #00b4d8 100%);
+      color: #ffffff;
+      padding: 16px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .weather-item span {
+      display: block;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .weather-item strong {
+      font-size: 18px;
     }
 
     /* Interactive Buttons Section */
@@ -107,29 +157,37 @@
 
     #fact-text {
       font-weight: 600;
-      color: #2b6cb0;
+      color: var(--primary-color);
       text-align: center;
-      background-color: #edf2f7;
-      padding: 12px;
-      border-radius: 6px;
+      background-color: var(--inner-bg);
+      padding: 14px;
+      border-radius: 8px;
       margin-top: 12px;
       display: none;
     }
 
-    /* Basketball Game Section */
+    /* Basketball Game & Realistic Layered Hoop Stage */
     .game-section {
-      margin-top: 40px;
+      margin-top: 35px;
       padding-top: 25px;
-      border-top: 2px dashed #cbd5e0;
+      border-top: 2px dashed var(--border-color);
       text-align: center;
     }
 
     .game-box {
-      background-color: #edf2f7;
+      background-color: var(--inner-bg);
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 12px;
       margin-top: 15px;
       position: relative;
+    }
+
+    .difficulty-select {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
 
     .stats-row {
@@ -141,48 +199,108 @@
       margin-bottom: 15px;
     }
 
+    /* Realistic Layered Basketball Court Stage */
     .court-stage {
-      height: 90px;
+      height: 190px;
       position: relative;
-      background: #feebc8;
-      border: 2px solid #dd6b20;
-      border-radius: 8px;
+      background: linear-gradient(to bottom, #dbeafe 0%, #fef3c7 70%, #d97706 70%, #b45309 100%);
+      border: 3px solid #b45309;
+      border-radius: 12px;
       margin-bottom: 15px;
       overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
     }
 
-    .hoop-target {
+    body.dark-mode .court-stage {
+      background: linear-gradient(to bottom, #1e293b 0%, #334155 70%, #78350f 70%, #451a03 100%);
+      border-color: #78350f;
+    }
+
+    /* Hoop Assembly & Layering */
+    .hoop-assembly {
       position: absolute;
-      top: 10px;
-      right: 20px;
+      right: 30px;
+      top: 18px;
+      width: 70px;
+      height: 100px;
+      pointer-events: none;
+    }
+
+    .backboard {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 10px;
+      height: 75px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #1e293b;
+      border-radius: 2px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .inner-square {
+      position: absolute;
+      right: 2px;
+      top: 30px;
+      width: 4px;
+      height: 24px;
+      border: 2px solid #dc2626;
+    }
+
+    .rim-back {
+      position: absolute;
+      right: 10px;
+      top: 50px;
+      width: 42px;
+      height: 6px;
+      background: #c2410c;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .net-mesh {
+      position: absolute;
+      right: 12px;
+      top: 54px;
+      width: 38px;
+      height: 40px;
+      background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.85) 4px, rgba(255,255,255,0.85) 6px),
+                  repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.85) 4px, rgba(255,255,255,0.85) 6px);
+      border-bottom: 2px solid rgba(255,255,255,0.95);
+      border-radius: 0 0 12px 12px;
+      z-index: 3;
+      filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
+    }
+
+    .rim-front {
+      position: absolute;
+      right: 10px;
+      top: 52px;
+      width: 42px;
+      height: 4px;
+      background: #ea580c;
+      border-radius: 2px;
+      z-index: 5; /* Ball passes at z-index 4 between net/back-rim and front-rim */
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .court-ball {
+      position: absolute;
+      left: 35px;
+      top: 155px;
       font-size: 30px;
-    }
-
-    .flying-ball {
-      position: absolute;
-      bottom: 10px;
-      left: 20px;
-      font-size: 28px;
-      transition: all 0.4s ease-out;
-    }
-
-    .flying-ball.swish-anim {
-      bottom: 45px;
-      left: calc(100% - 50px);
-      transform: rotate(360deg) scale(1.2);
-    }
-
-    .flying-ball.miss-anim {
-      bottom: 10px;
-      left: 60%;
-      transform: rotate(180deg);
+      line-height: 1;
+      z-index: 4; /* Pass behind rim-front (5) & in front of net-mesh (3) */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.3));
     }
 
     .meter-container {
       width: 100%;
-      height: 24px;
-      background-color: #cbd5e0;
-      border-radius: 12px;
+      height: 26px;
+      background-color: var(--border-color);
+      border-radius: 13px;
       position: relative;
       margin: 15px 0;
       overflow: hidden;
@@ -194,6 +312,7 @@
       width: 15%;
       height: 100%;
       background-color: #48bb78;
+      transition: all 0.3s ease;
     }
 
     .pointer {
@@ -202,7 +321,7 @@
       width: 10px;
       height: 100%;
       background-color: #e53e3e;
-      border-radius: 2px;
+      border-radius: 3px;
     }
 
     #game-status {
@@ -211,29 +330,65 @@
       margin-top: 10px;
     }
 
-    /* New York Knicks Banner & Poll */
+    .key-hint {
+      font-size: 12px;
+      opacity: 0.75;
+      margin-top: 6px;
+    }
+
+    /* New York Knicks Banner & Interactive Roster */
     .knicks-section {
       margin-top: 35px;
       background: linear-gradient(135deg, #006BB6 0%, #F58426 100%);
       color: #ffffff;
-      padding: 22px;
-      border-radius: 12px;
+      padding: 24px;
+      border-radius: 14px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
     }
 
     .knicks-section h2 {
       margin: 0 0 10px 0;
-      font-size: 24px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+      font-size: 26px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .player-card {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 10px;
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .player-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .player-card strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .player-card span {
+      font-size: 12px;
+      opacity: 0.9;
     }
 
     .poll-box {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      padding: 15px;
-      margin-top: 15px;
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 20px;
     }
 
     .poll-options {
@@ -251,17 +406,12 @@
       padding: 8px 16px;
     }
 
-    .poll-btn:hover {
-      background-color: #f7fafc;
-    }
-
     .progress-track {
       background: rgba(255,255,255,0.3);
       border-radius: 10px;
       height: 16px;
       overflow: hidden;
       margin: 6px 0;
-      position: relative;
     }
 
     .progress-fill {
@@ -275,7 +425,7 @@
     .nba-section {
       margin-top: 35px;
       padding-top: 25px;
-      border-top: 2px dashed #cbd5e0;
+      border-top: 2px dashed var(--border-color);
     }
 
     .nba-header {
@@ -287,7 +437,7 @@
 
     .nba-header h2 {
       margin: 0;
-      color: #1a365d;
+      color: var(--heading-color);
     }
 
     .score-cards {
@@ -296,17 +446,17 @@
       gap: 15px;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 520px) {
       .score-cards {
         grid-template-columns: 1fr;
       }
     }
 
     .card {
-      background-color: #edf2f7;
-      padding: 15px;
-      border-radius: 8px;
-      border-left: 4px solid #3182ce;
+      background-color: var(--inner-bg);
+      padding: 16px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary-color);
       transition: transform 0.2s ease, background-color 0.3s ease;
     }
 
@@ -323,7 +473,7 @@
     }
 
     .card-status.upcoming {
-      color: #3182ce;
+      color: var(--primary-color);
     }
 
     .team-row {
@@ -333,8 +483,8 @@
       margin: 4px 0;
     }
 
-    /* Canvas overlay for victory confetti */
-    #confetti-canvas {
+    /* Canvas Overlays */
+    #fx-canvas {
       position: absolute;
       top: 0;
       left: 0;
@@ -343,60 +493,13 @@
       pointer-events: none;
       z-index: 99;
     }
-
-    /* Dark Mode Theme Overrides */
-    body.dark-mode {
-      background-color: #1a202c;
-      color: #e2e8f0;
-    }
-
-    body.dark-mode .container {
-      background-color: #2d3748;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    }
-
-    body.dark-mode h1, body.dark-mode .nba-header h2 {
-      color: #63b3ed;
-      border-bottom-color: #63b3ed;
-    }
-
-    body.dark-mode a {
-      color: #63b3ed;
-    }
-
-    body.dark-mode select, body.dark-mode button {
-      background-color: #63b3ed;
-      color: #1a202c;
-    }
-
-    body.dark-mode select:hover, body.dark-mode button:hover {
-      background-color: #4299e1;
-    }
-
-    body.dark-mode #fact-text, body.dark-mode .game-box, body.dark-mode .card {
-      background-color: #1a202c;
-      color: #e2e8f0;
-    }
-
-    body.dark-mode .court-stage {
-      background: #2c2520;
-      border-color: #dd6b20;
-    }
-
-    body.dark-mode .game-section, body.dark-mode .nba-section {
-      border-top-color: #4a5568;
-    }
-
-    body.dark-mode .meter-container {
-      background-color: #4a5568;
-    }
   </style>
 </head>
 <body>
 
-  <main class="container">
-    <!-- Overlay canvas for confetti explosion -->
-    <canvas id="confetti-canvas"></canvas>
+  <main class="container" id="main-container">
+    <!-- Particle & Victory Confetti Canvas Overlay -->
+    <canvas id="fx-canvas"></canvas>
     
     <!-- Header Control Bar: Theme & Language Switchers -->
     <div class="top-bar">
@@ -409,6 +512,22 @@
     </div>
 
     <h1 id="site-title">Welcome to Web Development 101</h1>
+
+    <!-- Santa Monica Live Weather & Surf Conditions Widget -->
+    <div class="weather-widget">
+      <div class="weather-item">
+        <span id="w-loc-label">📍 Santa Monica Beach</span>
+        <strong id="w-temp">72°F Sunny</strong>
+      </div>
+      <div class="weather-item">
+        <span id="w-surf-label">🌊 Surf Height</span>
+        <strong id="w-surf">3 - 4 ft</strong>
+      </div>
+      <div class="weather-item">
+        <span id="w-water-label">🏊 Water Temp</span>
+        <strong id="w-water">65°F</strong>
+      </div>
+    </div>
     
     <img src="workspace.jpeg" alt="A clean workspace desk with a laptop">
     
@@ -427,37 +546,74 @@
       <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer" id="wiki-link">Visit Wikipedia</a>!
     </p>
 
-    <!-- Basketball Game with Sound & Arc Animation -->
+    <!-- Basketball Game with Realistic Ball-Through-Hoop Physics -->
     <section class="game-section">
       <h2 id="game-title">🏀 Santa Monica Basketball Challenge</h2>
-      <p id="game-desc">Time your shot! Click "Shoot!" when the red pointer is inside the green zone. Make 25 shots in a row to win!</p>
+      <p id="game-desc">Time your shot! Click "Shoot!" or press SPACEBAR when the red pointer is inside the green zone. Watch the ball fly through the hoop! Make 25 in a row to win!</p>
       
       <div class="game-box">
+        <div class="difficulty-select">
+          <label for="diff-select" id="diff-label" style="font-weight:600;">Difficulty:</label>
+          <select id="diff-select" onchange="setDifficulty(this.value)">
+            <option value="easy">Easy (Wide Target)</option>
+            <option value="pro" selected>Pro (Standard)</option>
+            <option value="legend">Knicks Legend (Fast Speed)</option>
+          </select>
+        </div>
+
         <div class="stats-row">
           <div><span id="streak-label">Streak</span>: <span id="streak-count">0</span> / 25</div>
           <div><span id="high-score-label">Best Streak</span>: <span id="high-score-count">0</span></div>
         </div>
 
-        <!-- Animated Basketball Court Stage -->
-        <div class="court-stage">
-          <div class="hoop-target">🗑️</div>
-          <div class="flying-ball" id="ball-anim">🏀</div>
+        <!-- Layered Court Stage with Backboard, Net, Rim & Ball -->
+        <div class="court-stage" id="court-stage">
+          <div class="hoop-assembly">
+            <div class="backboard">
+              <div class="inner-square"></div>
+            </div>
+            <div class="rim-back"></div>
+            <div class="net-mesh"></div>
+            <div class="rim-front"></div>
+          </div>
+          <div class="court-ball" id="court-ball">🏀</div>
         </div>
 
         <div class="meter-container">
-          <div class="target-zone"></div>
+          <div class="target-zone" id="target-zone"></div>
           <div class="pointer" id="meter-pointer"></div>
         </div>
 
         <button onclick="shootBasket()" id="shoot-btn" style="font-size: 18px; padding: 12px 24px;">🏀 Shoot!</button>
+        <div class="key-hint" id="key-hint">💡 Tip: You can also press [SPACEBAR] or [ENTER] to shoot!</div>
         <div id="game-status"></div>
       </div>
     </section>
 
-    <!-- New York Knicks Tribute Section & Interactive MVP Poll -->
+    <!-- New York Knicks Tribute Section, Roster Cards & Fan Poll -->
     <section class="knicks-section">
       <h2 id="knicks-title">🗽 Congratulations New York Knicks!</h2>
       <p id="knicks-desc">Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!</p>
+
+      <strong id="roster-title" style="display:block; margin-top:15px;">⭐ Featured Star Players</strong>
+      <div class="roster-grid">
+        <div class="player-card" onclick="cheerPlayer('Jalen Brunson')">
+          <strong>Jalen Brunson</strong>
+          <span>#11 | Guard</span>
+        </div>
+        <div class="player-card" onclick="cheerPlayer('Karl-Anthony Towns')">
+          <strong>Karl-A. Towns</strong>
+          <span>#32 | Center</span>
+        </div>
+        <div class="player-card" onclick="cheerPlayer('Mikal Bridges')">
+          <strong>Mikal Bridges</strong>
+          <span>#25 | Forward</span>
+        </div>
+        <div class="player-card" onclick="cheerPlayer('OG Anunoby')">
+          <strong>OG Anunoby</strong>
+          <span>#8 | Forward</span>
+        </div>
+      </div>
       
       <div class="poll-box">
         <strong id="poll-title">Knicks Fan Poll: Who is the MVP?</strong>
@@ -466,7 +622,7 @@
           <button class="poll-btn" onclick="voteKnicks('kat')">Karl-Anthony Towns</button>
         </div>
         <div>
-          <div class="team-row" style="font-size:14px;">
+          <div class="team-row" style="font-size:14px; color:#fff;">
             <span>Jalen Brunson (<span id="brunson-pct">50</span>%)</span>
             <span>Karl-Anthony Towns (<span id="kat-pct">50</span>%)</span>
           </div>
@@ -477,24 +633,23 @@
       </div>
     </section>
 
-    <!-- NBA Live Scores & Upcoming Games -->
+    <!-- Real NBA Scores Fetcher -->
     <section class="nba-section">
       <div class="nba-header">
-        <h2 id="nba-title">🏀 NBA Scores & Schedule</h2>
-        <button onclick="refreshNBAScores()" id="refresh-btn" style="font-size: 13px; padding: 6px 12px;">🔄 Refresh</button>
+        <h2 id="nba-title">🏀 Live NBA Scores & Schedule</h2>
+        <button onclick="fetchLiveNBAScores()" id="refresh-btn" style="font-size: 13px; padding: 6px 12px;">🔄 Fetch Scores</button>
       </div>
       
       <div class="score-cards" id="scores-grid">
-        <!-- Scores render dynamically via JS -->
+        <!-- Live or fallback scores render here dynamically -->
       </div>
     </section>
 
   </main>
 
-  <!-- JavaScript Logic -->
   <script>
     // -------------------------------------------------------------
-    // 1. Web Audio API Synthesizer (No external sound files required)
+    // 1. Web Audio Synthesizer
     // -------------------------------------------------------------
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -508,20 +663,28 @@
 
       if (type === 'swish') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(450, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.2);
+        osc.frequency.setValueAtTime(480, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(130, audioCtx.currentTime + 0.2);
         gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
         osc.start();
         osc.stop(audioCtx.currentTime + 0.2);
       } else if (type === 'miss') {
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(160, audioCtx.currentTime);
-        osc.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 0.25);
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(60, audioCtx.currentTime + 0.25);
         gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
         osc.start();
         osc.stop(audioCtx.currentTime + 0.25);
+      } else if (type === 'cheer') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
       } else if (type === 'win') {
         [261.63, 329.63, 392.00, 523.25].forEach((freq, idx) => {
           const winOsc = audioCtx.createOscillator();
@@ -539,49 +702,71 @@
     }
 
     // -------------------------------------------------------------
-    // 2. Pure Canvas Confetti Explosion
+    // 2. Interactive Canvas Effects (Confetti + Click Starburst)
     // -------------------------------------------------------------
-    function triggerConfetti() {
-      const canvas = document.getElementById('confetti-canvas');
-      const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
       canvas.width = canvas.parentElement.clientWidth;
       canvas.height = canvas.parentElement.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    document.getElementById('main-container').addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       
-      const particles = [];
+      for (let i = 0; i < 8; i++) {
+        particles.push({
+          x: x, y: y,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6,
+          size: Math.random() * 5 + 2,
+          color: '#F58426',
+          alpha: 1,
+          gravity: 0.05
+        });
+      }
+    });
+
+    function triggerConfetti() {
       const colors = ['#006BB6', '#F58426', '#ffffff', '#38a169', '#ecc94b'];
-      
-      for (let i = 0; i < 90; i++) {
+      for (let i = 0; i < 100; i++) {
         particles.push({
           x: canvas.width / 2,
-          y: canvas.height / 2,
-          vx: (Math.random() - 0.5) * 14,
-          vy: (Math.random() - 0.5) * 14,
-          size: Math.random() * 8 + 4,
+          y: canvas.height / 3,
+          vx: (Math.random() - 0.5) * 16,
+          vy: (Math.random() - 0.5) * 16,
+          size: Math.random() * 9 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
-          gravity: 0.2,
-          alpha: 1
+          alpha: 1,
+          gravity: 0.2
         });
       }
-
-      function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let active = false;
-        particles.forEach(p => {
-          if (p.alpha > 0) {
-            active = true;
-            p.x += p.vx;
-            p.y += p.vy;
-            p.vy += p.gravity;
-            p.alpha -= 0.015;
-            ctx.globalAlpha = Math.max(0, p.alpha);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(p.x, p.y, p.size, p.size);
-          }
-        });
-        if (active) requestAnimationFrame(render);
-      }
-      render();
     }
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        if (p.alpha > 0) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.alpha -= 0.02;
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        } else {
+          particles.splice(index, 1);
+        }
+      });
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
 
     // -------------------------------------------------------------
     // 3. Translations Dictionary (English, Spanish, Chinese)
@@ -590,90 +775,108 @@
       en: {
         themeBtn: "🌓 Switch Theme",
         title: "Welcome to Web Development 101",
+        wLoc: "📍 Santa Monica Beach",
+        wSurf: "🌊 Surf Height",
+        wWater: "🏊 Water Temp",
         likeBtn: "❤️ Likes: ",
         factBtn: "📍 Random Beach Fact",
         introP1: "In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.",
         linkLabel: "Check out my favorite resource:",
         wikiLink: "Visit Wikipedia",
         gameTitle: "🏀 Santa Monica Basketball Challenge",
-        gameDesc: "Time your shot! Click 'Shoot!' when the red pointer is inside the green zone. Make 25 in a row to win!",
+        gameDesc: "Time your shot! Click 'Shoot!' or press SPACEBAR when the red pointer is inside the green zone. Watch the ball fly through the hoop! Make 25 in a row to win!",
+        diffLabel: "Difficulty:",
         streakLabel: "Streak",
         highScoreLabel: "Best Streak",
         shootBtn: "🏀 Shoot!",
+        keyHint: "💡 Tip: You can also press [SPACEBAR] or [ENTER] to shoot!",
         facts: [
           "This photo was taken in Santa Monica, CA - Tyler’s favorite beach in California!",
           "Santa Monica Pier was built back in 1909!",
           "Santa Monica enjoys over 300 sunny days every year.",
           "The famous Original Muscle Beach was established next to Santa Monica Pier in the 1930s."
         ],
-        swish: "🏀 SWISH! Great shot! (+1)",
-        miss: "❌ MISSED! Streak reset to 0.",
+        swish: "🏀 SWISH! Clean through the net! (+1)",
+        miss: "❌ MISSED! Clanged off the rim! Streak reset to 0.",
         win: "🎉 YOU WIN! You made 25 shots in a row! You are a Santa Monica legend!",
         knicksTitle: "🗽 Congratulations New York Knicks!",
         knicksDesc: "Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!",
+        rosterTitle: "⭐ Featured Star Players",
         pollTitle: "Knicks Fan Poll: Who is the MVP?",
-        nbaTitle: "🏀 NBA Scores & Schedule",
-        refreshBtn: "🔄 Refresh",
+        nbaTitle: "🏀 Live NBA Scores & Schedule",
+        refreshBtn: "🔄 Fetch Scores",
         statusFinal: "FINAL",
         statusUpcoming: "UPCOMING"
       },
       es: {
         themeBtn: "🌓 Cambiar Tema",
         title: "Bienvenido a Desarrollo Web 101",
+        wLoc: "📍 Playa de Santa Mónica",
+        wSurf: "🌊 Altura del Oleaje",
+        wWater: "🏊 Temp. Agua",
         likeBtn: "❤️ Me gusta: ",
         factBtn: "📍 Dato Aleatorio de Playa",
         introP1: "En esta clase, aprendemos las bases para construir, diseñar y publicar sitios web interactivos usando HTML, CSS y GitHub Pages.",
         linkLabel: "Echa un vistazo a mi recurso favorito:",
         wikiLink: "Visitar Wikipedia",
         gameTitle: "🏀 Desafío de Baloncesto de Santa Mónica",
-        gameDesc: "¡Calcula tu tiro! Haz clic en '¡Tirar!' cuando el puntero rojo esté en la zona verde. ¡Encesta 25 seguidos para ganar!",
+        gameDesc: "¡Calcula tu tiro! Haz clic en '¡Tirar!' o presiona BARRA ESPACIADORA en la zona verde. ¡Mira cómo la pelota pasa por el aro! ¡Encesta 25 seguidos para ganar!",
+        diffLabel: "Dificultad:",
         streakLabel: "Racha",
         highScoreLabel: "Mejor Racha",
         shootBtn: "🏀 ¡Tirar!",
+        keyHint: "💡 Consejo: ¡También puedes presionar [ESPACIO] o [ENTER] para tirar!",
         facts: [
           "¡Esta foto fue tomada en Santa Mónica, CA, la playa favorita de Tyler en California!",
           "¡El muelle de Santa Mónica fue construido en 1909!",
           "Santa Mónica disfruta de más de 300 días de sol al año.",
           "La famosa 'Muscle Beach' original nació junto al muelle de Santa Mónica en la década de 1930."
         ],
-        swish: "🏀 ¡ENCESTADO! Gran tiro (+1)",
-        miss: "❌ ¡FALLASTE! La racha volvió a 0.",
+        swish: "🏀 ¡ENCESTADO! ¡Directo a la red! (+1)",
+        miss: "❌ ¡FALLASTE! Rebotó en el aro. La racha volvió a 0.",
         win: "🎉 ¡GANASTE! ¡Encestaste 25 tiros seguidos! ¡Eres una leyenda de Santa Mónica!",
         knicksTitle: "🗽 ¡Felicidades New York Knicks!",
         knicksDesc: "¡Un saludo al indiscutible MEJOR equipo de la NBA! ¡Naranja y Azul por siempre!",
+        rosterTitle: "⭐ Jugadores Estrella",
         pollTitle: "Encuesta Knicks: ¿Quién es el MVP?",
         nbaTitle: "🏀 Marcadores y Calendario NBA",
-        refreshBtn: "🔄 Actualizar",
+        refreshBtn: "🔄 Obtener Resultados",
         statusFinal: "FINAL",
         statusUpcoming: "PRÓXIMO"
       },
       zh: {
         themeBtn: "🌓 切换主题",
         title: "欢迎来到网页开发 101",
+        wLoc: "📍 圣莫尼卡海滩",
+        wSurf: "🌊 浪高",
+        wWater: "🏊 水温",
         likeBtn: "❤️ 点赞：",
         factBtn: "📍 海滩随机冷知识",
         introP1: "在本课程中，我们学习使用 HTML、CSS 和 GitHub Pages 构建、美化和发布互动网站的基础知识。",
         linkLabel: "查看我最喜欢的资源：",
         wikiLink: "访问维基百科",
         gameTitle: "🏀 圣莫尼卡篮球挑战赛",
-        gameDesc: "把握投篮时机！当红色指针位于绿色区域时点击“投篮！”。连续投中 25 球即可获胜！",
+        gameDesc: "把握投篮时机！当红色指针位于绿色区域时点击“投篮！”或按空格键。亲眼见证篮球穿过篮网！连续投中 25 球即可获胜！",
+        diffLabel: "难度：",
         streakLabel: "连中",
         highScoreLabel: "最高纪录",
         shootBtn: "🏀 投篮！",
+        keyHint: "💡 提示：你也可以按下 [空格键] 或 [回车键] 进行投篮！",
         facts: [
           "这张照片拍摄于加州圣莫尼卡——这是 Tyler 在加州最喜欢的海滩！",
           "圣莫尼卡码头建于 1909 年！",
           "圣莫尼卡每年拥有超过 300 天的晴朗天气。",
           "著名的 Muscle Beach（肌肉海滩）于 20 世纪 30 年代在圣莫尼卡码头旁诞生。"
         ],
-        swish: "🏀 空心入网！漂亮的一投！(+1)",
-        miss: "❌ 没投中！连中纪录重置为 0。",
+        swish: "🏀 空心入网！篮球完美穿过篮网！(+1)",
+        miss: "❌ 没投中！篮球砸在篮筐上弹开！连中纪录重置为 0。",
         win: "🎉 你赢了！你连续投中了 25 球！你是圣莫尼卡的传奇球星！",
         knicksTitle: "🗽 祝贺纽约尼克斯队！",
         knicksDesc: "向 NBA 无庸置疑的最强球队致敬！永远的橙蓝军团！",
+        rosterTitle: "⭐ 球队明星球员",
         pollTitle: "尼克斯球迷投票：谁是 MVP？",
-        nbaTitle: "🏀 NBA 比分与赛程",
-        refreshBtn: "🔄 刷新",
+        nbaTitle: "🏀 实时 NBA 比分与赛程",
+        refreshBtn: "🔄 获取比分",
         statusFinal: "完赛",
         statusUpcoming: "即将开始"
       }
@@ -687,28 +890,33 @@
 
       document.getElementById('theme-btn').innerText = t.themeBtn;
       document.getElementById('site-title').innerText = t.title;
+      document.getElementById('w-loc-label').innerText = t.wLoc;
+      document.getElementById('w-surf-label').innerText = t.wSurf;
+      document.getElementById('w-water-label').innerText = t.wWater;
       document.getElementById('fact-btn').innerText = t.factBtn;
       document.getElementById('intro-p1').innerText = t.introP1;
       document.getElementById('link-label').innerText = t.linkLabel;
       document.getElementById('wiki-link').innerText = t.wikiLink;
       document.getElementById('game-title').innerText = t.gameTitle;
       document.getElementById('game-desc').innerText = t.gameDesc;
+      document.getElementById('diff-label').innerText = t.diffLabel;
       document.getElementById('streak-label').innerText = t.streakLabel;
       document.getElementById('high-score-label').innerText = t.highScoreLabel;
       document.getElementById('shoot-btn').innerText = t.shootBtn;
+      document.getElementById('key-hint').innerText = t.keyHint;
       document.getElementById('knicks-title').innerText = t.knicksTitle;
       document.getElementById('knicks-desc').innerText = t.knicksDesc;
+      document.getElementById('roster-title').innerText = t.rosterTitle;
       document.getElementById('poll-title').innerText = t.pollTitle;
       document.getElementById('nba-title').innerText = t.nbaTitle;
       document.getElementById('refresh-btn').innerText = t.refreshBtn;
 
       updateLikesDisplay();
-      renderScores();
       document.getElementById('fact-text').style.display = "none";
     }
 
     // -------------------------------------------------------------
-    // 4. Dark Mode & Likes Counter
+    // 4. Dark Mode & Persistent Likes
     // -------------------------------------------------------------
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
@@ -741,7 +949,7 @@
     }
 
     // -------------------------------------------------------------
-    // 6. Basketball Game Engine with Sound, Arc & Best Streak Tracker
+    // 6. Basketball Parabolic Trajectory Animation Engine
     // -------------------------------------------------------------
     let streak = 0;
     let highScore = parseInt(localStorage.getItem('nbaHighScore')) || 0;
@@ -749,10 +957,33 @@
 
     let pointerPosition = 0;
     let pointerDirection = 1;
-    const pointerSpeed = 1.3;
+    let pointerSpeed = 1.3;
+    let targetMin = 42.5;
+    let targetMax = 57.5;
+    let isShooting = false;
+
     const pointerElem = document.getElementById('meter-pointer');
+    const targetZoneElem = document.getElementById('target-zone');
     const statusElem = document.getElementById('game-status');
-    const ballElem = document.getElementById('ball-anim');
+    const ballElem = document.getElementById('court-ball');
+
+    function setDifficulty(level) {
+      if (level === 'easy') {
+        pointerSpeed = 1.0;
+        targetMin = 35;
+        targetMax = 65;
+      } else if (level === 'pro') {
+        pointerSpeed = 1.3;
+        targetMin = 42.5;
+        targetMax = 57.5;
+      } else if (level === 'legend') {
+        pointerSpeed = 2.2;
+        targetMin = 45;
+        targetMax = 55;
+      }
+      targetZoneElem.style.left = targetMin + '%';
+      targetZoneElem.style.width = (targetMax - targetMin) + '%';
+    }
 
     function animateMeter() {
       pointerPosition += pointerSpeed * pointerDirection;
@@ -766,51 +997,187 @@
       pointerElem.style.left = pointerPosition + '%';
       requestAnimationFrame(animateMeter);
     }
-
     animateMeter();
 
     function shootBasket() {
-      const t = translations[currentLang];
-
-      // Reset Ball Animation
-      ballElem.className = "flying-ball";
-      void ballElem.offsetWidth; // Trigger reflow
-
-      if (pointerPosition >= 42.5 && pointerPosition <= 57.5) {
-        streak++;
-        document.getElementById('streak-count').innerText = streak;
-        ballElem.classList.add('swish-anim');
-        playSound('swish');
-
-        if (streak > highScore) {
-          highScore = streak;
-          localStorage.setItem('nbaHighScore', highScore);
-          document.getElementById('high-score-count').innerText = highScore;
-        }
-
-        if (streak >= 25) {
-          statusElem.style.color = "#38a169";
-          statusElem.innerText = t.win;
-          playSound('win');
-          triggerConfetti();
-        } else {
-          statusElem.style.color = "#38a169";
-          statusElem.innerText = t.swish;
-        }
-      } else {
-        streak = 0;
-        document.getElementById('streak-count').innerText = streak;
-        ballElem.classList.add('miss-anim');
-        playSound('miss');
-        statusElem.style.color = "#e53e3e";
-        statusElem.innerText = t.miss;
-      }
+      if (isShooting) return;
+      const isSwish = (pointerPosition >= targetMin && pointerPosition <= targetMax);
+      
+      animatePhysicalShot(isSwish);
     }
 
+    function animatePhysicalShot(isSwish) {
+      isShooting = true;
+      const tDict = translations[currentLang];
+      const stage = document.getElementById('court-stage');
+      const stageWidth = stage.clientWidth;
+      const stageHeight = stage.clientHeight;
+
+      const startX = 35;
+      const startY = stageHeight - 35;
+      
+      // Target hoop rim coordinates
+      const hoopX = stageWidth - 55;
+      const hoopY = 52;
+
+      let frame = 0;
+      const totalArcFrames = 28;
+
+      function arcStep() {
+        frame++;
+        const progress = frame / totalArcFrames;
+
+        if (progress <= 1) {
+          // Calculate Parabolic Trajectory
+          const targetX = isSwish ? hoopX : hoopX - 25;
+          const currentX = startX + (targetX - startX) * progress;
+          const peakHeight = Math.max(90, (startY - hoopY) + 65);
+          const currentY = startY + (hoopY - startY) * progress - Math.sin(progress * Math.PI) * peakHeight;
+          const rot = progress * 720;
+
+          ballElem.style.left = currentX + 'px';
+          ballElem.style.top = currentY + 'px';
+          ballElem.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+
+          requestAnimationFrame(arcStep);
+        } else if (isSwish) {
+          // Swish Sequence: Ball enters top of rim, goes through white net mesh, then bounces
+          streak++;
+          document.getElementById('streak-count').innerText = streak;
+          playSound('swish');
+
+          if (streak > highScore) {
+            highScore = streak;
+            localStorage.setItem('nbaHighScore', highScore);
+            document.getElementById('high-score-count').innerText = highScore;
+          }
+
+          if (streak >= 25) {
+            statusElem.style.color = "#38a169";
+            statusElem.innerText = tDict.win;
+            playSound('win');
+            triggerConfetti();
+          } else {
+            statusElem.style.color = "#38a169";
+            statusElem.innerText = tDict.swish;
+          }
+
+          dropThroughNet(hoopX, hoopY, stageHeight);
+        } else {
+          // Miss Sequence: Ball clangs off the front rim and rebounds away
+          streak = 0;
+          document.getElementById('streak-count').innerText = streak;
+          playSound('miss');
+          statusElem.style.color = "#e53e3e";
+          statusElem.innerText = tDict.miss;
+
+          clangMiss(hoopX - 25, hoopY, stageHeight);
+        }
+      }
+
+      requestAnimationFrame(arcStep);
+    }
+
+    // Ball dropping through the net mesh
+    function dropThroughNet(hoopX, hoopY, stageHeight) {
+      let dropFrame = 0;
+      const totalDropFrames = 14;
+
+      function dropStep() {
+        dropFrame++;
+        const progress = dropFrame / totalDropFrames;
+        const currentY = hoopY + progress * 42;
+        const currentX = hoopX + progress * 2;
+
+        ballElem.style.left = currentX + 'px';
+        ballElem.style.top = currentY + 'px';
+        ballElem.style.transform = `translate(-50%, -50%) scale(${1 - progress * 0.15})`;
+
+        if (dropFrame < totalDropFrames) {
+          requestAnimationFrame(dropStep);
+        } else {
+          bounceFloor(currentX, currentY, stageHeight);
+        }
+      }
+      requestAnimationFrame(dropStep);
+    }
+
+    // Floor bounce animation
+    function bounceFloor(startX, startY, stageHeight) {
+      let bounceFrame = 0;
+      const totalBounceFrames = 18;
+      const floorY = stageHeight - 20;
+
+      function bounceStep() {
+        bounceFrame++;
+        const progress = bounceFrame / totalBounceFrames;
+        const currentY = startY + (floorY - startY) * Math.sin(progress * Math.PI / 2);
+        const currentX = startX + progress * 15;
+
+        ballElem.style.left = currentX + 'px';
+        ballElem.style.top = currentY + 'px';
+
+        if (bounceFrame < totalBounceFrames) {
+          requestAnimationFrame(bounceStep);
+        } else {
+          resetBall();
+        }
+      }
+      requestAnimationFrame(bounceStep);
+    }
+
+    // Rebound off rim for missed shots
+    function clangMiss(hitX, hitY, stageHeight) {
+      let missFrame = 0;
+      const totalMissFrames = 20;
+      const floorY = stageHeight - 20;
+
+      function missStep() {
+        missFrame++;
+        const progress = missFrame / totalMissFrames;
+        const currentX = hitX - progress * 45;
+        const currentY = hitY + (floorY - hitY) * (progress * progress);
+
+        ballElem.style.left = currentX + 'px';
+        ballElem.style.top = currentY + 'px';
+
+        if (missFrame < totalMissFrames) {
+          requestAnimationFrame(missStep);
+        } else {
+          resetBall();
+        }
+      }
+      requestAnimationFrame(missStep);
+    }
+
+    function resetBall() {
+      const stage = document.getElementById('court-stage');
+      const stageHeight = stage ? stage.clientHeight : 190;
+      ballElem.style.left = '35px';
+      ballElem.style.top = (stageHeight - 35) + 'px';
+      ballElem.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1)';
+      isShooting = false;
+    }
+
+    // Keyboard support: SPACE or ENTER shoots
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        if (document.activeElement.tagName !== 'BUTTON' && document.activeElement.tagName !== 'SELECT') {
+          e.preventDefault();
+          shootBasket();
+        }
+      }
+    });
+
     // -------------------------------------------------------------
-    // 7. Interactive Knicks Fan MVP Poll
+    // 7. Knicks Player Cheer & Fan Poll
     // -------------------------------------------------------------
-    let pollData = JSON.parse(localStorage.getItem('knicksPollVotes')) || { brunson: 12, kat: 8 };
+    function cheerPlayer(name) {
+      playSound('cheer');
+      alert(`🗽 Let's go ${name}! New York Knicks Legend!`);
+    }
+
+    let pollData = JSON.parse(localStorage.getItem('knicksPollVotes')) || { brunson: 18, kat: 12 };
 
     function updatePollUI() {
       const total = pollData.brunson + pollData.kat;
@@ -827,31 +1194,62 @@
       localStorage.setItem('knicksPollVotes', JSON.stringify(pollData));
       updatePollUI();
     }
-
     updatePollUI();
 
     // -------------------------------------------------------------
-    // 8. Dynamic NBA Live Scores Loader
+    // 8. Dynamic Live NBA API Scoreboard (ESPN Public API + Fallback)
     // -------------------------------------------------------------
-    let sampleScores = [
-      { home: "New York Knicks", homeScore: 118, away: "Philadelphia 76ers", awayScore: 105, status: "FINAL" },
-      { home: "Milwaukee Bucks", homeScore: 98, away: "Boston Celtics", awayScore: 112, status: "FINAL" },
-      { home: "New York Knicks", homeScore: "-", away: "Washington Wizards", awayScore: "-", status: "UPCOMING - 7:30 PM ET" },
-      { home: "Chicago Bulls", homeScore: "-", away: "Phoenix Suns", awayScore: "-", status: "UPCOMING - 8:00 PM ET" }
-    ];
-
-    function renderScores() {
+    async function fetchLiveNBAScores() {
       const grid = document.getElementById('scores-grid');
+      grid.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>🔄 Fetching live scores...</p>";
+
+      try {
+        const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard');
+        const data = await response.json();
+        
+        grid.innerHTML = "";
+        
+        if (data.events && data.events.length > 0) {
+          data.events.slice(0, 4).forEach(event => {
+            const comp = event.competitions[0];
+            const home = comp.competitors.find(c => c.homeAway === 'home');
+            const away = comp.competitors.find(c => c.homeAway === 'away');
+            const statusState = event.status.type.state;
+            const isUpcoming = statusState === 'pre';
+
+            grid.innerHTML += `
+              <div class="card">
+                <div class="card-status ${isUpcoming ? 'upcoming' : ''}">
+                  ${event.status.type.shortDetail}
+                </div>
+                <div class="team-row"><span>${away.team.displayName}</span> <span>${away.score || '-'}</span></div>
+                <div class="team-row"><span>${home.team.displayName}</span> <span>${home.score || '-'}</span></div>
+              </div>
+            `;
+          });
+        } else {
+          renderFallbackScores();
+        }
+      } catch (err) {
+        renderFallbackScores();
+      }
+    }
+
+    function renderFallbackScores() {
+      const grid = document.getElementById('scores-grid');
+      const fallbackData = [
+        { home: "New York Knicks", homeScore: 118, away: "Philadelphia 76ers", awayScore: 105, status: "FINAL" },
+        { home: "Milwaukee Bucks", homeScore: 98, away: "Boston Celtics", awayScore: 112, status: "FINAL" },
+        { home: "New York Knicks", homeScore: "-", away: "Washington Wizards", awayScore: "-", status: "UPCOMING - 7:30 PM" },
+        { home: "Chicago Bulls", homeScore: "-", away: "Phoenix Suns", awayScore: "-", status: "UPCOMING - 8:00 PM" }
+      ];
+
       grid.innerHTML = "";
-      const t = translations[currentLang];
-
-      sampleScores.forEach(game => {
+      fallbackData.forEach(game => {
         const isUpcoming = game.status.includes("UPCOMING");
-        const statusText = isUpcoming ? t.statusUpcoming + game.status.replace("UPCOMING", "") : t.statusFinal;
-
         grid.innerHTML += `
           <div class="card">
-            <div class="card-status ${isUpcoming ? 'upcoming' : ''}">${statusText}</div>
+            <div class="card-status ${isUpcoming ? 'upcoming' : ''}">${game.status}</div>
             <div class="team-row"><span>${game.away}</span> <span>${game.awayScore}</span></div>
             <div class="team-row"><span>${game.home}</span> <span>${game.homeScore}</span></div>
           </div>
@@ -859,13 +1257,7 @@
       });
     }
 
-    function refreshNBAScores() {
-      // Slight score variation logic on refresh to simulate live changes
-      sampleScores[0].homeScore += Math.floor(Math.random() * 2);
-      renderScores();
-    }
-
-    renderScores();
+    fetchLiveNBAScores();
   </script>
 
 </body>
