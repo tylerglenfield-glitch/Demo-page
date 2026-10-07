@@ -24,6 +24,8 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     /* Header & Control Bar */
@@ -94,7 +96,7 @@
       text-decoration: underline;
     }
 
-    /* Interactive Elements Section */
+    /* Interactive Buttons Section */
     .button-group {
       display: flex;
       justify-content: center;
@@ -130,13 +132,59 @@
       position: relative;
     }
 
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      font-size: 18px;
+      font-weight: bold;
+      color: #dd6b20;
+      margin-bottom: 15px;
+    }
+
+    .court-stage {
+      height: 90px;
+      position: relative;
+      background: #feebc8;
+      border: 2px solid #dd6b20;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .hoop-target {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+    }
+
+    .flying-ball {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      font-size: 28px;
+      transition: all 0.4s ease-out;
+    }
+
+    .flying-ball.swish-anim {
+      bottom: 45px;
+      left: calc(100% - 50px);
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    .flying-ball.miss-anim {
+      bottom: 10px;
+      left: 60%;
+      transform: rotate(180deg);
+    }
+
     .meter-container {
       width: 100%;
       height: 24px;
       background-color: #cbd5e0;
       border-radius: 12px;
       position: relative;
-      margin: 20px 0;
+      margin: 15px 0;
       overflow: hidden;
     }
 
@@ -157,24 +205,18 @@
       border-radius: 2px;
     }
 
-    .streak-badge {
-      font-size: 20px;
-      font-weight: bold;
-      color: #dd6b20;
-    }
-
     #game-status {
       font-weight: bold;
       min-height: 24px;
       margin-top: 10px;
     }
 
-    /* New York Knicks Banner */
+    /* New York Knicks Banner & Poll */
     .knicks-section {
       margin-top: 35px;
       background: linear-gradient(135deg, #006BB6 0%, #F58426 100%);
       color: #ffffff;
-      padding: 20px;
+      padding: 22px;
       border-radius: 12px;
       text-align: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -186,10 +228,47 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
     }
 
-    .knicks-section p {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 500;
+    .poll-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+      backdrop-filter: blur(4px);
+    }
+
+    .poll-options {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    .poll-btn {
+      background-color: #ffffff;
+      color: #006BB6;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 8px 16px;
+    }
+
+    .poll-btn:hover {
+      background-color: #f7fafc;
+    }
+
+    .progress-track {
+      background: rgba(255,255,255,0.3);
+      border-radius: 10px;
+      height: 16px;
+      overflow: hidden;
+      margin: 6px 0;
+      position: relative;
+    }
+
+    .progress-fill {
+      background: #ffffff;
+      height: 100%;
+      width: 50%;
+      transition: width 0.4s ease;
     }
 
     /* NBA Schedule & Scores Section */
@@ -199,10 +278,16 @@
       border-top: 2px dashed #cbd5e0;
     }
 
-    .nba-section h2 {
-      text-align: center;
-      color: #1a365d;
+    .nba-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
+    }
+
+    .nba-header h2 {
+      margin: 0;
+      color: #1a365d;
     }
 
     .score-cards {
@@ -248,6 +333,17 @@
       margin: 4px 0;
     }
 
+    /* Canvas overlay for victory confetti */
+    #confetti-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 99;
+    }
+
     /* Dark Mode Theme Overrides */
     body.dark-mode {
       background-color: #1a202c;
@@ -259,7 +355,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    body.dark-mode h1, body.dark-mode .nba-section h2 {
+    body.dark-mode h1, body.dark-mode .nba-header h2 {
       color: #63b3ed;
       border-bottom-color: #63b3ed;
     }
@@ -282,6 +378,11 @@
       color: #e2e8f0;
     }
 
+    body.dark-mode .court-stage {
+      background: #2c2520;
+      border-color: #dd6b20;
+    }
+
     body.dark-mode .game-section, body.dark-mode .nba-section {
       border-top-color: #4a5568;
     }
@@ -294,6 +395,8 @@
 <body>
 
   <main class="container">
+    <!-- Overlay canvas for confetti explosion -->
+    <canvas id="confetti-canvas"></canvas>
     
     <!-- Header Control Bar: Theme & Language Switchers -->
     <div class="top-bar">
@@ -307,7 +410,7 @@
 
     <h1 id="site-title">Welcome to Web Development 101</h1>
     
-    <img src="workspace.jpg" alt="A clean workspace desk with a laptop">
+    <img src="workspace.jpeg" alt="A clean workspace desk with a laptop">
     
     <!-- Interactive Buttons -->
     <div class="button-group">
@@ -324,14 +427,23 @@
       <a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer" id="wiki-link">Visit Wikipedia</a>!
     </p>
 
-    <!-- Basketball Game -->
+    <!-- Basketball Game with Sound & Arc Animation -->
     <section class="game-section">
       <h2 id="game-title">🏀 Santa Monica Basketball Challenge</h2>
       <p id="game-desc">Time your shot! Click "Shoot!" when the red pointer is inside the green zone. Make 25 shots in a row to win!</p>
       
       <div class="game-box">
-        <div class="streak-badge"><span id="streak-label">Streak</span>: <span id="streak-count">0</span> / 25</div>
-        
+        <div class="stats-row">
+          <div><span id="streak-label">Streak</span>: <span id="streak-count">0</span> / 25</div>
+          <div><span id="high-score-label">Best Streak</span>: <span id="high-score-count">0</span></div>
+        </div>
+
+        <!-- Animated Basketball Court Stage -->
+        <div class="court-stage">
+          <div class="hoop-target">🗑️</div>
+          <div class="flying-ball" id="ball-anim">🏀</div>
+        </div>
+
         <div class="meter-container">
           <div class="target-zone"></div>
           <div class="pointer" id="meter-pointer"></div>
@@ -342,41 +454,38 @@
       </div>
     </section>
 
-    <!-- New York Knicks Tribute Section -->
+    <!-- New York Knicks Tribute Section & Interactive MVP Poll -->
     <section class="knicks-section">
       <h2 id="knicks-title">🗽 Congratulations New York Knicks!</h2>
       <p id="knicks-desc">Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!</p>
+      
+      <div class="poll-box">
+        <strong id="poll-title">Knicks Fan Poll: Who is the MVP?</strong>
+        <div class="poll-options">
+          <button class="poll-btn" onclick="voteKnicks('brunson')">Jalen Brunson</button>
+          <button class="poll-btn" onclick="voteKnicks('kat')">Karl-Anthony Towns</button>
+        </div>
+        <div>
+          <div class="team-row" style="font-size:14px;">
+            <span>Jalen Brunson (<span id="brunson-pct">50</span>%)</span>
+            <span>Karl-Anthony Towns (<span id="kat-pct">50</span>%)</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="poll-fill"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- NBA Live Scores & Upcoming Games -->
     <section class="nba-section">
-      <h2 id="nba-title">🏀 NBA Scores & Upcoming Games</h2>
-      <div class="score-cards">
-        
-        <div class="card">
-          <div class="card-status" id="status-1">FINAL</div>
-          <div class="team-row"><span>Philadelphia 76ers</span> <span>120</span></div>
-          <div class="team-row"><span>New York Knicks</span> <span>97</span></div>
-        </div>
-
-        <div class="card">
-          <div class="card-status" id="status-2">FINAL</div>
-          <div class="team-row"><span>Minnesota Timberwolves</span> <span>116</span></div>
-          <div class="team-row"><span>Milwaukee Bucks</span> <span>97</span></div>
-        </div>
-
-        <div class="card">
-          <div class="card-status upcoming" id="status-3">UPCOMING - 7:30 PM ET</div>
-          <div class="team-row"><span>Washington Wizards</span> <span>-</span></div>
-          <div class="team-row"><span>New York Knicks</span> <span>-</span></div>
-        </div>
-
-        <div class="card">
-          <div class="card-status upcoming" id="status-4">UPCOMING - 8:00 PM ET</div>
-          <div class="team-row"><span>Phoenix Suns</span> <span>-</span></div>
-          <div class="team-row"><span>Chicago Bulls</span> <span>-</span></div>
-        </div>
-
+      <div class="nba-header">
+        <h2 id="nba-title">🏀 NBA Scores & Schedule</h2>
+        <button onclick="refreshNBAScores()" id="refresh-btn" style="font-size: 13px; padding: 6px 12px;">🔄 Refresh</button>
+      </div>
+      
+      <div class="score-cards" id="scores-grid">
+        <!-- Scores render dynamically via JS -->
       </div>
     </section>
 
@@ -385,7 +494,97 @@
   <!-- JavaScript Logic -->
   <script>
     // -------------------------------------------------------------
-    // 1. Translations Dictionary (English, Spanish, Chinese)
+    // 1. Web Audio API Synthesizer (No external sound files required)
+    // -------------------------------------------------------------
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'swish') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+      } else if (type === 'miss') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.25);
+      } else if (type === 'win') {
+        [261.63, 329.63, 392.00, 523.25].forEach((freq, idx) => {
+          const winOsc = audioCtx.createOscillator();
+          const winGain = audioCtx.createGain();
+          winOsc.type = 'triangle';
+          winOsc.frequency.value = freq;
+          winGain.gain.setValueAtTime(0.2, audioCtx.currentTime + idx * 0.1);
+          winGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + idx * 0.1 + 0.35);
+          winOsc.connect(winGain);
+          winGain.connect(audioCtx.destination);
+          winOsc.start(audioCtx.currentTime + idx * 0.1);
+          winOsc.stop(audioCtx.currentTime + idx * 0.1 + 0.35);
+        });
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 2. Pure Canvas Confetti Explosion
+    // -------------------------------------------------------------
+    function triggerConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      
+      const particles = [];
+      const colors = ['#006BB6', '#F58426', '#ffffff', '#38a169', '#ecc94b'];
+      
+      for (let i = 0; i < 90; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.5) * 14,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          gravity: 0.2,
+          alpha: 1
+        });
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+        particles.forEach(p => {
+          if (p.alpha > 0) {
+            active = true;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += p.gravity;
+            p.alpha -= 0.015;
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+          }
+        });
+        if (active) requestAnimationFrame(render);
+      }
+      render();
+    }
+
+    // -------------------------------------------------------------
+    // 3. Translations Dictionary (English, Spanish, Chinese)
     // -------------------------------------------------------------
     const translations = {
       en: {
@@ -399,6 +598,7 @@
         gameTitle: "🏀 Santa Monica Basketball Challenge",
         gameDesc: "Time your shot! Click 'Shoot!' when the red pointer is inside the green zone. Make 25 in a row to win!",
         streakLabel: "Streak",
+        highScoreLabel: "Best Streak",
         shootBtn: "🏀 Shoot!",
         facts: [
           "This photo was taken in Santa Monica, CA - Tyler’s favorite beach in California!",
@@ -411,10 +611,11 @@
         win: "🎉 YOU WIN! You made 25 shots in a row! You are a Santa Monica legend!",
         knicksTitle: "🗽 Congratulations New York Knicks!",
         knicksDesc: "Shoutout to the indisputable BEST team in the NBA! Orange & Blue forever!",
-        nbaTitle: "🏀 NBA Scores & Upcoming Games",
+        pollTitle: "Knicks Fan Poll: Who is the MVP?",
+        nbaTitle: "🏀 NBA Scores & Schedule",
+        refreshBtn: "🔄 Refresh",
         statusFinal: "FINAL",
-        statusUpcoming1: "UPCOMING - 7:30 PM ET",
-        statusUpcoming2: "UPCOMING - 8:00 PM ET"
+        statusUpcoming: "UPCOMING"
       },
       es: {
         themeBtn: "🌓 Cambiar Tema",
@@ -427,6 +628,7 @@
         gameTitle: "🏀 Desafío de Baloncesto de Santa Mónica",
         gameDesc: "¡Calcula tu tiro! Haz clic en '¡Tirar!' cuando el puntero rojo esté en la zona verde. ¡Encesta 25 seguidos para ganar!",
         streakLabel: "Racha",
+        highScoreLabel: "Mejor Racha",
         shootBtn: "🏀 ¡Tirar!",
         facts: [
           "¡Esta foto fue tomada en Santa Mónica, CA, la playa favorita de Tyler en California!",
@@ -439,10 +641,11 @@
         win: "🎉 ¡GANASTE! ¡Encestaste 25 tiros seguidos! ¡Eres una leyenda de Santa Mónica!",
         knicksTitle: "🗽 ¡Felicidades New York Knicks!",
         knicksDesc: "¡Un saludo al indiscutible MEJOR equipo de la NBA! ¡Naranja y Azul por siempre!",
-        nbaTitle: "🏀 Resultados y Próximos Partidos de la NBA",
+        pollTitle: "Encuesta Knicks: ¿Quién es el MVP?",
+        nbaTitle: "🏀 Marcadores y Calendario NBA",
+        refreshBtn: "🔄 Actualizar",
         statusFinal: "FINAL",
-        statusUpcoming1: "PRÓXIMO - 7:30 PM ET",
-        statusUpcoming2: "PRÓXIMO - 8:00 PM ET"
+        statusUpcoming: "PRÓXIMO"
       },
       zh: {
         themeBtn: "🌓 切换主题",
@@ -455,6 +658,7 @@
         gameTitle: "🏀 圣莫尼卡篮球挑战赛",
         gameDesc: "把握投篮时机！当红色指针位于绿色区域时点击“投篮！”。连续投中 25 球即可获胜！",
         streakLabel: "连中",
+        highScoreLabel: "最高纪录",
         shootBtn: "🏀 投篮！",
         facts: [
           "这张照片拍摄于加州圣莫尼卡——这是 Tyler 在加州最喜欢的海滩！",
@@ -467,10 +671,11 @@
         win: "🎉 你赢了！你连续投中了 25 球！你是圣莫尼卡的传奇球星！",
         knicksTitle: "🗽 祝贺纽约尼克斯队！",
         knicksDesc: "向 NBA 无庸置疑的最强球队致敬！永远的橙蓝军团！",
-        nbaTitle: "🏀 NBA 比分与近期赛事",
+        pollTitle: "尼克斯球迷投票：谁是 MVP？",
+        nbaTitle: "🏀 NBA 比分与赛程",
+        refreshBtn: "🔄 刷新",
         statusFinal: "完赛",
-        statusUpcoming1: "即将开始 - 美东时间 19:30",
-        statusUpcoming2: "即将开始 - 美东时间 20:00"
+        statusUpcoming: "即将开始"
       }
     };
 
@@ -489,31 +694,26 @@
       document.getElementById('game-title').innerText = t.gameTitle;
       document.getElementById('game-desc').innerText = t.gameDesc;
       document.getElementById('streak-label').innerText = t.streakLabel;
+      document.getElementById('high-score-label').innerText = t.highScoreLabel;
       document.getElementById('shoot-btn').innerText = t.shootBtn;
-      
-      // Update Knicks & NBA Schedule translations
       document.getElementById('knicks-title').innerText = t.knicksTitle;
       document.getElementById('knicks-desc').innerText = t.knicksDesc;
+      document.getElementById('poll-title').innerText = t.pollTitle;
       document.getElementById('nba-title').innerText = t.nbaTitle;
-      document.getElementById('status-1').innerText = t.statusFinal;
-      document.getElementById('status-2').innerText = t.statusFinal;
-      document.getElementById('status-3').innerText = t.statusUpcoming1;
-      document.getElementById('status-4').innerText = t.statusUpcoming2;
+      document.getElementById('refresh-btn').innerText = t.refreshBtn;
 
       updateLikesDisplay();
+      renderScores();
       document.getElementById('fact-text').style.display = "none";
     }
 
     // -------------------------------------------------------------
-    // 2. Dark Mode Toggle
+    // 4. Dark Mode & Likes Counter
     // -------------------------------------------------------------
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
     }
 
-    // -------------------------------------------------------------
-    // 3. Likes Counter with LocalStorage
-    // -------------------------------------------------------------
     let likes = parseInt(localStorage.getItem('siteLikes')) || 0;
 
     function updateLikesDisplay() {
@@ -529,7 +729,7 @@
     updateLikesDisplay();
 
     // -------------------------------------------------------------
-    // 4. Random Fact Generator
+    // 5. Random Fact Generator
     // -------------------------------------------------------------
     function showRandomFact() {
       const factList = translations[currentLang].facts;
@@ -541,14 +741,18 @@
     }
 
     // -------------------------------------------------------------
-    // 5. Basketball Game Engine
+    // 6. Basketball Game Engine with Sound, Arc & Best Streak Tracker
     // -------------------------------------------------------------
     let streak = 0;
+    let highScore = parseInt(localStorage.getItem('nbaHighScore')) || 0;
+    document.getElementById('high-score-count').innerText = highScore;
+
     let pointerPosition = 0;
     let pointerDirection = 1;
-    const pointerSpeed = 1.2;
+    const pointerSpeed = 1.3;
     const pointerElem = document.getElementById('meter-pointer');
     const statusElem = document.getElementById('game-status');
+    const ballElem = document.getElementById('ball-anim');
 
     function animateMeter() {
       pointerPosition += pointerSpeed * pointerDirection;
@@ -568,14 +772,27 @@
     function shootBasket() {
       const t = translations[currentLang];
 
+      // Reset Ball Animation
+      ballElem.className = "flying-ball";
+      void ballElem.offsetWidth; // Trigger reflow
+
       if (pointerPosition >= 42.5 && pointerPosition <= 57.5) {
         streak++;
         document.getElementById('streak-count').innerText = streak;
+        ballElem.classList.add('swish-anim');
+        playSound('swish');
+
+        if (streak > highScore) {
+          highScore = streak;
+          localStorage.setItem('nbaHighScore', highScore);
+          document.getElementById('high-score-count').innerText = highScore;
+        }
 
         if (streak >= 25) {
           statusElem.style.color = "#38a169";
           statusElem.innerText = t.win;
-          alert(t.win);
+          playSound('win');
+          triggerConfetti();
         } else {
           statusElem.style.color = "#38a169";
           statusElem.innerText = t.swish;
@@ -583,10 +800,72 @@
       } else {
         streak = 0;
         document.getElementById('streak-count').innerText = streak;
+        ballElem.classList.add('miss-anim');
+        playSound('miss');
         statusElem.style.color = "#e53e3e";
         statusElem.innerText = t.miss;
       }
     }
+
+    // -------------------------------------------------------------
+    // 7. Interactive Knicks Fan MVP Poll
+    // -------------------------------------------------------------
+    let pollData = JSON.parse(localStorage.getItem('knicksPollVotes')) || { brunson: 12, kat: 8 };
+
+    function updatePollUI() {
+      const total = pollData.brunson + pollData.kat;
+      const brunsonPct = Math.round((pollData.brunson / total) * 100);
+      const katPct = 100 - brunsonPct;
+
+      document.getElementById('brunson-pct').innerText = brunsonPct;
+      document.getElementById('kat-pct').innerText = katPct;
+      document.getElementById('poll-fill').style.width = brunsonPct + '%';
+    }
+
+    function voteKnicks(player) {
+      pollData[player]++;
+      localStorage.setItem('knicksPollVotes', JSON.stringify(pollData));
+      updatePollUI();
+    }
+
+    updatePollUI();
+
+    // -------------------------------------------------------------
+    // 8. Dynamic NBA Live Scores Loader
+    // -------------------------------------------------------------
+    let sampleScores = [
+      { home: "New York Knicks", homeScore: 118, away: "Philadelphia 76ers", awayScore: 105, status: "FINAL" },
+      { home: "Milwaukee Bucks", homeScore: 98, away: "Boston Celtics", awayScore: 112, status: "FINAL" },
+      { home: "New York Knicks", homeScore: "-", away: "Washington Wizards", awayScore: "-", status: "UPCOMING - 7:30 PM ET" },
+      { home: "Chicago Bulls", homeScore: "-", away: "Phoenix Suns", awayScore: "-", status: "UPCOMING - 8:00 PM ET" }
+    ];
+
+    function renderScores() {
+      const grid = document.getElementById('scores-grid');
+      grid.innerHTML = "";
+      const t = translations[currentLang];
+
+      sampleScores.forEach(game => {
+        const isUpcoming = game.status.includes("UPCOMING");
+        const statusText = isUpcoming ? t.statusUpcoming + game.status.replace("UPCOMING", "") : t.statusFinal;
+
+        grid.innerHTML += `
+          <div class="card">
+            <div class="card-status ${isUpcoming ? 'upcoming' : ''}">${statusText}</div>
+            <div class="team-row"><span>${game.away}</span> <span>${game.awayScore}</span></div>
+            <div class="team-row"><span>${game.home}</span> <span>${game.homeScore}</span></div>
+          </div>
+        `;
+      });
+    }
+
+    function refreshNBAScores() {
+      // Slight score variation logic on refresh to simulate live changes
+      sampleScores[0].homeScore += Math.floor(Math.random() * 2);
+      renderScores();
+    }
+
+    renderScores();
   </script>
 
 </body>
