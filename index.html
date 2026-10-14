@@ -1,622 +1,58 @@
-<!DOCTYPE html> <!-- This is the doc type and the system saying its in html -->
-<html lang="en"> <!--setting html language to english -->
-<head> <!--heading for the page -->
-  <meta charset="UTF-8"> <!--showing santa monica time, weather, and temp, starting -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Main area where details of santa monica is being shown -->
-  <title>Intro to Web Development | Santa Monica, Knicks & Rainbow Edition</title> <!--Website title -->
-  <style> /* style of this*/
-    /* */
-    :root { /* */
-      --bg-color: #eef2f5; /* ALL OF THESE ARE COLORS AND STYLES OF THE HEADINGS AND BOXES THE TEXT ARE IN*/
-      --card-bg: #ffffff; /*card color */
-      --text-color: #2d3748; /*text color */
-      --heading-color: #1a365d; /* heading text color*/
-      --primary-color: #3182ce; /* page color*/
-      --primary-hover: #2b6cb0; /* hover coler*/
-      --border-color: #cbd5e0; /*border color */
-      --inner-bg: #edf2f7; /* inner page color*/
-    } /* */
-    body.dark-mode { /* when in dark mode these are colors*/
-      --bg-color: #1a202c; /*dark mode color */
-      --card-bg: #2d3748; /* card dark*/
-      --text-color: #e2e8f0; /* text dark mode*/
-      --heading-color: #63b3ed; /* heading dark mode*/
-      --primary-color: #63b3ed; /*primary colors in dark mode */
-      --primary-hover: #4299e1; /* */
-      --border-color: #4a5568; /* */
-      --inner-bg: #1a202c; /* */
-    } /* */
-    body { /* */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* font for the body text and details */
-      background-color: var(--bg-color); /* backround color*/
-      color: var(--text-color); /*text color for this */
-      margin: 0; /* margin size*/
-      padding: 40px 20px; /* */
-      line-height: 1.6; /*how high lines are, etc */
-      transition: background-color 0.3s ease, color 0.3s ease; /*transitions colors, and seconds between the switches */
-    } /* */
-    .container { /* */
-      max-width: 720px; /* */
-      margin: 0 auto; /* */
-      background-color: var(--card-bg); /* */
-      padding: 32px; /* */
-      border-radius: 16px; /* */
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* */
-      transition: background-color 0.3s ease, box-shadow 0.3s ease; /* */
-      position: relative; /* */
-      overflow: hidden; /* */
-    } /* */
-    /* */
-    .top-bar { /* */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    select, button {
-      background-color: var(--primary-color);
-      color: #ffffff;
-      border: none;
-      padding: 10px 16px;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .rainbow-btn {
-      background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff);
-      color: #ffffff;
-      font-weight: 700;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .rainbow-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      filter: brightness(1.1);
-    }
-
-    body.dark-mode select, body.dark-mode button:not(.rainbow-btn) {
-      color: #1a202c;
-    }
-
-    select {
-      outline: none;
-    }
-
-    button:hover, select:hover {
-      background-color: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    button:active {
-      transform: scale(0.97);
-    }
-
-    h1 {
-      color: var(--heading-color);
-      text-align: center;
-      margin-top: 0;
-      border-bottom: 3px solid var(--primary-color);
-      padding-bottom: 12px;
-      font-size: 28px;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-
-    p {
-      font-size: 17px;
-      margin-bottom: 16px;
-    }
-
-    a {
-      color: var(--primary-color);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Resources Links Box */
-    .links-box {
-      background-color: var(--inner-bg);
-      padding: 16px 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .links-box ul {
-      margin: 8px 0 0 0;
-      padding-left: 20px;
-    }
-
-    .links-box li {
-      margin-bottom: 6px;
-    }
-
-    /* Weather & Beach Widget */
-    .weather-widget {
-      background: linear-gradient(135deg, #3182ce 0%, #00b4d8 100%);
-      color: #ffffff;
-      padding: 16px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin: 20px 0;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .weather-item span {
-      display: block;
-      font-size: 13px;
-      opacity: 0.9;
-    }
-
-    .weather-item strong {
-      font-size: 18px;
-    }
-
-    /* Interactive Buttons Section */
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-
-    #fact-text {
-      font-weight: 600;
-      color: var(--primary-color);
-      text-align: center;
-      background-color: var(--inner-bg);
-      padding: 14px;
-      border-radius: 8px;
-      margin-top: 12px;
-      display: none;
-    }
-
-    /* Basketball Game & Layered Hoop Stage */
-    .game-section {
-      margin-top: 35px;
-      padding-top: 25px;
-      border-top: 2px dashed var(--border-color);
-      text-align: center;
-    }
-
-    .game-box {
-      background-color: var(--inner-bg);
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 15px;
-      position: relative;
-    }
-
-    .difficulty-select {
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .stats-row {
-      display: flex;
-      justify-content: space-around;
-      font-size: 18px;
-      font-weight: bold;
-      color: #dd6b20;
-      margin-bottom: 15px;
-    }
-
-    /* Layered Basketball Court Stage */
-    .court-stage {
-      height: 190px;
-      position: relative;
-      background: linear-gradient(to bottom, #dbeafe 0%, #fef3c7 70%, #d97706 70%, #b45309 100%);
-      border: 3px solid #b45309;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
-    }
-
-    body.dark-mode .court-stage {
-      background: linear-gradient(to bottom, #1e293b 0%, #334155 70%, #78350f 70%, #451a03 100%);
-      border-color: #78350f;
-    }
-
-    /* Hoop Assembly */
-    .hoop-assembly {
-      position: absolute;
-      right: 30px;
-      top: 18px;
-      width: 70px;
-      height: 100px;
-      pointer-events: none;
-    }
-
-    .backboard {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 10px;
-      height: 75px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid #1e293b;
-      border-radius: 2px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .inner-square {
-      position: absolute;
-      right: 2px;
-      top: 30px;
-      width: 4px;
-      height: 24px;
-      border: 2px solid #dc2626;
-    }
-
-    .rim-back {
-      position: absolute;
-      right: 10px;
-      top: 50px;
-      width: 42px;
-      height: 6px;
-      background: #c2410c;
-      border-radius: 3px;
-      z-index: 2;
-    }
-
-    .net-mesh {
-      position: absolute;
-      right: 12px;
-      top: 54px;
-      width: 38px;
-      height: 40px;
-      background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.85) 4px, rgba(255,255,255,0.85) 6px),
-                  repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.85) 4px, rgba(255,255,255,0.85) 6px);
-      border-bottom: 2px solid rgba(255,255,255,0.95);
-      border-radius: 0 0 12px 12px;
-      z-index: 3;
-      filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
-    }
-
-    .rim-front {
-      position: absolute;
-      right: 10px;
-      top: 52px;
-      width: 42px;
-      height: 4px;
-      background: #ea580c;
-      border-radius: 2px;
-      z-index: 5;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-
-    .court-ball {
-      position: absolute;
-      left: 35px;
-      top: 155px;
-      font-size: 30px;
-      line-height: 1;
-      z-index: 4;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.3));
-    }
-
-    .meter-container {
-      width: 100%;
-      height: 26px;
-      background-color: var(--border-color);
-      border-radius: 13px;
-      position: relative;
-      margin: 15px 0;
-      overflow: hidden;
-    }
-
-    .target-zone {
-      position: absolute;
-      left: 42.5%;
-      width: 15%;
-      height: 100%;
-      background-color: #48bb78;
-      transition: all 0.3s ease;
-    }
-
-    .pointer {
-      position: absolute;
-      left: 0%;
-      width: 10px;
-      height: 100%;
-      background-color: #e53e3e;
-      border-radius: 3px;
-    }
-
-    #game-status {
-      font-weight: bold;
-      min-height: 24px;
-      margin-top: 10px;
-    }
-
-    .key-hint {
-      font-size: 12px;
-      opacity: 0.75;
-      margin-top: 6px;
-    }
-
-    /* New York Knicks Banner & Interactive Roster */
-    .knicks-section {
-      margin-top: 35px;
-      background: linear-gradient(135deg, #006BB6 0%, #F58426 100%);
-      color: #ffffff;
-      padding: 24px;
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
-    }
-
-    .knicks-section h2 {
-      margin: 0 0 10px 0;
-      font-size: 26px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-    }
-
-    .roster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .player-card {
-      background: rgba(255, 255, 255, 0.18);
-      border-radius: 8px;
-      padding: 10px;
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .player-card:hover {
-      transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.28);
-    }
-
-    .player-card strong {
-      display: block;
-      font-size: 14px;
-    }
-
-    .player-card span {
-      font-size: 12px;
-      opacity: 0.9;
-    }
-
-    .poll-box {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      padding: 16px;
-      margin-top: 20px;
-    }
-
-    .poll-options {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin: 12px 0;
-    }
-
-    .poll-btn {
-      background-color: #ffffff;
-      color: #006BB6;
-      font-weight: 700;
-      border-radius: 20px;
-      padding: 8px 16px;
-    }
-
-    .progress-track {
-      background: rgba(255,255,255,0.3);
-      border-radius: 10px;
-      height: 16px;
-      overflow: hidden;
-      margin: 6px 0;
-    }
-
-    .progress-fill {
-      background: #ffffff;
-      height: 100%;
-      width: 50%;
-      transition: width 0.4s ease;
-    }
-
-    /* NBA Schedule & Scores Section */
-    .nba-section {
-      margin-top: 35px;
-      padding-top: 25px;
-      border-top: 2px dashed var(--border-color);
-    }
-
-    .nba-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .nba-header h2 {
-      margin: 0;
-      color: var(--heading-color);
-    }
-
-    .score-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    @media (max-width: 520px) {
-      .score-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background-color: var(--inner-bg);
-      padding: 16px;
-      border-radius: 10px;
-      border-left: 4px solid var(--primary-color);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-    }
-
-    .card-status {
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #e53e3e;
-      margin-bottom: 8px;
-    }
-
-    .card-status.upcoming {
-      color: var(--primary-color);
-    }
-
-    .team-row {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-      margin: 4px 0;
-    }
-
-    /* Bottom Photo Gallery Grid */
-    .gallery-section {
-      margin-top: 35px;
-      padding-top: 25px;
-      border-top: 2px dashed var(--border-color);
-    }
-
-    .gallery-section h2 {
-      text-align: center;
-      color: var(--heading-color);
-      margin-bottom: 20px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 540px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .gallery-card {
-      background-color: var(--inner-bg);
-      padding: 14px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin: 0 0 10px 0;
-    }
-
-    .gallery-card p {
-      font-size: 14px;
-      font-weight: 600;
-      margin: 0;
-      color: var(--heading-color);
-    }
-
-    /* Overlay Canvas for Rainbows & Particles */
-    #fx-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 99;
-    }
-  </style>
-</head>
-<body>
-
-  <main class="container" id="main-container">
-    <!-- Overlay Canvas for Confetti, Click Rainbows & Formed Full Rainbow Arc -->
-    <canvas id="fx-canvas"></canvas>
-    
-    <!-- Header Control Bar: Theme, Language & Rainbow Controls -->
-    <div class="top-bar">
-      <button onclick="toggleTheme()" id="theme-btn">🌓 Switch Theme</button>
-      <button onclick="formRainbow()" class="rainbow-btn" id="rainbow-start-btn">🌈 Form Rainbow</button>
-      <select id="language-select" onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
-
-    <h1 id="site-title">Welcome to Web Development 101</h1>
-
-    <!-- Santa Monica Live Weather & Surf Conditions Widget -->
-    <div class="weather-widget">
-      <div class="weather-item">
-        <span id="w-loc-label">📍 Santa Monica Beach</span>
-        <strong id="w-temp">72°F Sunny</strong>
-      </div>
-      <div class="weather-item">
-        <span id="w-surf-label">🌊 Surf Height</span>
-        <strong id="w-surf">3 - 4 ft</strong>
-      </div>
-      <div class="weather-item">
-        <span id="w-water-label">🏊 Water Temp</span>
-        <strong id="w-water">65°F</strong>
-      </div>
-    </div>
-    
-    <img src="workspace.jpeg" alt="A clean workspace desk with a laptop">
-    
-    <!-- Interactive Buttons -->
-    <div class="button-group">
-      <button onclick="addLike()" id="like-btn">❤️ Likes: <span id="like-count">0</span></button>
-      <button onclick="showRandomFact()" id="fact-btn">📍 Random Beach Fact</button>
-      <button onclick="formRainbow()" class="rainbow-btn" id="rainbow-fact-btn">🌈 Form Full Rainbow</button>
-    </div>
-
-    <p id="fact-text"></p>
-
-    <p id="intro-p1">In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p>
+<!DOCTYPE html> <!-- -->
+<html lang="en"> <!-- -->
+<head> <!-- -->
+  <meta charset="UTF-8"> <!-- -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- -->
+  <title>Intro to Web Development | Santa Monica, Knicks & Rainbow Edition</title> <!-- -->
+  <link rel="stylesheet" href="styles.css"> <!-- -->
+</head> <!-- -->
+<body> <!-- -->
+ <!-- -->
+  <main class="container" id="main-container"> <!-- -->
+    <!-- Overlay Canvas for Confetti, Click Rainbows & Formed Full Rainbow Arc --> <!-- -->
+    <canvas id="fx-canvas"></canvas> <!-- -->
+     <!-- -->
+    <!-- Header Control Bar: Theme, Language & Rainbow Controls --> <!-- -->
+    <div class="top-bar"> <!-- -->
+      <button onclick="toggleTheme()" id="theme-btn">🌓 Switch Theme</button> <!-- -->
+      <button onclick="formRainbow()" class="rainbow-btn" id="rainbow-start-btn">🌈 Form Rainbow</button> <!-- -->
+      <select id="language-select" onchange="changeLanguage(this.value)"> <!-- -->
+        <option value="en">English</option> <!-- -->
+        <option value="es">Español</option> <!-- -->
+        <option value="zh">中文</option> <!-- -->
+      </select> <!-- -->
+    </div> <!-- -->
+ <!-- -->
+    <h1 id="site-title">Welcome to Web Development 101</h1> <!-- -->
+ <!-- -->
+    <!-- Santa Monica Live Weather & Surf Conditions Widget --> <!-- -->
+    <div class="weather-widget"> <!-- -->
+      <div class="weather-item"> <!-- -->
+        <span id="w-loc-label">📍 Santa Monica Beach</span> <!-- -->
+        <strong id="w-temp">72°F Sunny</strong> <!-- -->
+      </div> <!-- -->
+      <div class="weather-item"> <!-- -->
+        <span id="w-surf-label">🌊 Surf Height</span> <!-- -->
+        <strong id="w-surf">3 - 4 ft</strong> <!-- -->
+      </div> <!-- -->
+      <div class="weather-item"> <!-- -->
+        <span id="w-water-label">🏊 Water Temp</span> <!-- -->
+        <strong id="w-water">65°F</strong> <!-- -->
+      </div> <!-- -->
+    </div> <!-- -->
+     <!-- -->
+    <img src="workspace.jpg" alt="A clean workspace desk with a laptop"> <!-- -->
+     <!-- -->
+    <!-- Interactive Buttons --> <!-- -->
+    <div class="button-group"> <!-- -->
+      <button onclick="addLike()" id="like-btn">❤️ Likes: <span id="like-count">0</span></button> <!-- -->
+      <button onclick="showRandomFact()" id="fact-btn">📍 Random Beach Fact</button> <!-- -->
+      <button onclick="formRainbow()" class="rainbow-btn" id="rainbow-fact-btn">🌈 Form Full Rainbow</button> <!-- -->
+    </div> <!-- -->
+ <!-- -->
+    <p id="fact-text"></p> <!-- -->
+ <!-- -->
+    <p id="intro-p1">In this class, we learn the foundations of building, styling, and publishing interactive websites on the web using HTML, CSS, and GitHub Pages.</p> <!-- -->
 
     <!-- Essential Resource Links Section -->
     <div class="links-box">
@@ -840,7 +276,6 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // CLICK EVENT: Spawn an animated mini-rainbow arc + color burst at click coordinates
     document.getElementById('main-container').addEventListener('click', (e) => {
       if (['BUTTON', 'SELECT', 'A', 'OPTION', 'INPUT'].includes(e.target.tagName)) return;
 
@@ -874,7 +309,6 @@
       }
     });
 
-    // START BUTTON ACTION: Physically forms a majestic rainbow arc across the page
     function formRainbow() {
       playSound('rainbow');
       
@@ -1525,13 +959,5 @@
     fetchLiveNBAScores();
   </script>
 
-  <h1> New York Knicks are the Best </h1>
-  <h2>Yankees Cannot overcome the Rays In The ALDS :( </h2>
-  <p> Sadly, The yankees could not overcome the Rays as they get swept by the Rays, ending their playoff run at home for the third year in a row.
-  Fans are hoping to see the departure of Manager Aaron Boone, but with the MLB lockout looming, a big change could bring a lot of uncertanty to the club.</p>
-  <h1> Ovechkin announces retirement at end of season.</h1>
-  <p> Following his announcement that the 2026–27 season will be his 22nd and final year in the NHL before retiring, Washington Capitals captain Alex Ovechkin takes the ice tonight at Capital One Arena as his farewell tour continues against the Metropolitan Division rival New York Rangers. As the league's all-time goal-scoring leader embarks on his final campaign, every remaining matchup carries added emotion and weight, setting the stage for an intense, high-stakes division battle against New York.</p>
-  <h1> Will a bottom payroll team make or even win the World Series?</h1>
-  <p> As the MLB postseason is in full swing we see the reality of a low payroll team winning big becoming closer to a reality each day. The Guardians, Rays, and Brewers, three out of four teams remainign are in the botom 40% of payrolls and show that a better built baseball team will always beat a team full of 300 Million Dollar Sluggers not playing as a team.</p>
 </body>
 </html>
